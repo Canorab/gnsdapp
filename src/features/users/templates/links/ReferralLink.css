@@ -1,0 +1,12 @@
+/* .ref-link {
+	padding: 15px 30px;
+	border-radius: 15px;
+} */
+.ref-link {
+	padding: 15px 10px;
+	border-radius: 15px;
+	justify-content: space-between;
+	width: auto;
+	align-items: center;
+	height: 50px;
+}

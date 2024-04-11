@@ -1,0 +1,44 @@
+{
+	"compilerOptions": {
+		"target": "ES2020",
+		"useDefineForClassFields": true,
+		"lib": ["ES2020", "DOM", "DOM.Iterable"],
+		"module": "ESNext",
+		"skipLibCheck": true,
+
+		/* Bundler mode */
+		// "moduleResolution": "bundler",
+		"moduleResolution": "node",
+		"allowImportingTsExtensions": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"jsx": "react-jsx",
+
+		/* Linting */
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+
+		/* Module Resolver */
+		// "rootDir": "./",
+		// "baseUrl": "./",
+		"paths": {
+			"@/*": ["./src/*"],
+			"@app/*": ["./src/app/*"],
+			"@assets/*": ["./src/assets/*"],
+			"@components/*": ["./src/components/*"],
+			"@config/*": ["./src/config/*"],
+			"@features/*": ["./src/features/*"],
+			"@helpers/*": ["./src/hooks/*"],
+			"@hooks/*": ["./src/helpers/*"],
+			"@types/*": ["./src/types/*"],
+			"@pages/*": ["./src/features/*/pages"],
+			"@templates/*": ["./src/features/*/templates"]
+			// "@pages/*": ["src/pages/*"]
+		}
+	},
+	"include": ["src", "Router.tsx", "App.tsx", "vite.config.ts"],
+	"references": [{"path": "./tsconfig.node.json"}]
+}

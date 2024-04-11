@@ -1,0 +1,24 @@
+/* prettier-ignore */
+/* .content-container {
+	background: #fbfbfb;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 5fr;
+	grid-template-areas:
+		'header'
+		'main' 
+		;
+} */
+.content-container {
+	display: flex;
+	flex-direction: column;
+	background: #fbfbfb;
+	flex: 2;
+}
+
+.outlet-wrapper {
+	display: flex;
+	flex-direction: column;
+	/* flex: 3; */
+	/* grid-area: main; */
+}
