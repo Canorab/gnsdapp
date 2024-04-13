@@ -30,19 +30,19 @@ function Signup() {
 	const referrerId = '';
 	const [isConnect, setIsConnect] = useState(false); // Pass this into the Form's props
 	const [wallet, setWallet] = useState(''); // Pass this into the Form's props
-	const [domains, setDomains] = useState(0); // Pass this into the Form's props
+	const [domains, setDomains] = useState(1); // Pass this into the Form's props
 	// Const routeParams = useParams();
 	// const location = useLocation();
 	console.log(searchParams.get('ref'));
 
 	const handleConnect = () => {
 		setWallet(walletAddress);
-		setIsConnect(!isConnect);
+		setIsConnect(true);
 	};
 
 	const handleDisconnect = () => {
 		setWallet('');
-		setIsConnect(!isConnect);
+		setIsConnect(false);
 	};
 
 	return (
@@ -53,7 +53,7 @@ function Signup() {
 					{/* <Button variant='contained' className='connect-btn'>
 						Connect
 					</Button> */}
-					{isConnect ? (
+					{isConnect && wallet ? (
 						<Button variant='contained' className='connect-btn' onClick={handleDisconnect}>
 							disconnect
 						</Button>
@@ -63,7 +63,6 @@ function Signup() {
 						</Button>
 					)}
 				</div>
-				<h2 className='text-2xl mb-8 font-bold'>SIGN UP</h2>
 				<NewUserForm wallet={wallet} domains={domains} referrerUsername={referralUsername} />
 			</div>
 		</div>

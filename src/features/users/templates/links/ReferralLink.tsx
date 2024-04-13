@@ -11,7 +11,7 @@ function ReferralLink({username}) {
 		setLink(refLink);
 	}, []);
 	return (
-		<div style={{display: 'flex', borderWidth: 2, borderColor: '#b9b9b9'}} className='ref-link'>
+		<div style={{display: 'flex', borderWidth: 1, borderColor: '#b9b9b9'}} className='ref-link'>
 			<h2 className='text-gray-700 text-xl overflow-hidden aff-link'>{link}</h2>
 			<ContentCopy className='text-gray-700 cursor-pointer' />
 		</div>

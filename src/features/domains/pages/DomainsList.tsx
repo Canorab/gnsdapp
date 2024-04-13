@@ -6,6 +6,12 @@ import SearchInput from '@/components/forms/SearchInput';
 import {debounce} from '@mui/material/utils';
 import {domainCols} from '@/utils/constants';
 
+/*
+Get the wallet address of the currently logged in user's redux state and use it to query
+opensea, then update the user's domains (i.e write new docs to the user collection)
+for the user. Then update the user's domains count in the User table.
+*/
+
 function DomainsList() {
 	const [data, setData] = useState<DomainType[]>([]);
 	const [searched, setSearched] = useState<string>('');
@@ -14,7 +20,7 @@ function DomainsList() {
 		debounce((value: string) => {
 			setSearched(value);
 		}),
-		[],
+		[]
 	);
 
 	useEffect(() => {
@@ -22,7 +28,7 @@ function DomainsList() {
 			.then(async (res) => res.json())
 			.then((res: DomainType[]) => {
 				const searchResult = res.filter((item) =>
-					searched.toLowerCase() === '' ? item : item.username.toLowerCase().includes(searched),
+					searched.toLowerCase() === '' ? item : item.username.toLowerCase().includes(searched)
 				);
 
 				setData(searchResult);

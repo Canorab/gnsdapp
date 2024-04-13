@@ -10,6 +10,9 @@
  */
 import './styles.css';
 
+import {ThemeProvider, createTheme} from '@mui/material';
+import {blue, blueGrey, lightBlue} from '@mui/material/colors';
+
 // Import App from "./app/App";
 import {Provider} from 'react-redux';
 import React from 'react';
@@ -17,12 +20,24 @@ import ReactDOM from 'react-dom/client';
 // Import { Router } from "@app/Router";
 import {Router} from '../Router';
 import {RouterProvider} from 'react-router-dom';
+import {customTheme} from './utils/customTheme';
 import {disableReactDevTools} from '@fvilers/disable-react-devtools';
 import {store} from './app/store';
 
 if (process.env.NODE_ENV === 'production') {
 	disableReactDevTools();
 }
+
+// Implement theming here
+// const theme = createTheme({
+// 	palette: {
+// 		mode: 'light',
+// 		primary: {
+// 			main: lightBlue[500],
+// 		},
+// 	},
+// });
+// Const theme = createTheme();
 
 // Export const router = createBrowserRouter([
 //   {
@@ -40,5 +55,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 		<Provider store={store}>
 			<RouterProvider router={Router} />
 		</Provider>
-	</React.StrictMode>,
+	</React.StrictMode>
 );
