@@ -73,6 +73,7 @@ function LoginForm() {
 		} catch (error) {
 			// Console.log(error);
 			// Catch Server Errors
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-expect-error
 			if (error?.status === 'FETCH_ERROR') {
 				setError('root.serverError', {

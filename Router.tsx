@@ -33,8 +33,8 @@ export const Router = createBrowserRouter(
 		<Route path='/' element={<AppFlow />} errorElement={<Error404Page />}>
 			{/* Public Routes */}
 			<Route index element={<UserLogin />} />
-			<Route path='signup' element={<Signup />} />
-			<Route path='admin' element={<Login />} />
+			<Route path='/signup' element={<Signup />} />
+			<Route path='/admin' element={<Login />} />
 
 			<Route element={<PersistentLogin />}>
 				{/* 
