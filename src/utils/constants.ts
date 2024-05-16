@@ -2,13 +2,13 @@ import {type ColType} from '@/types/propTypes';
 
 export const usersCols: ColType[] = [
 	{
-		header: 'ID',
-		accessorkey: 'id',
-		footer: 'ID',
+		header: 'SN',
+		accessorkey: 'index',
+		footer: 'SN',
 	},
 	{
 		header: 'Date',
-		accessorkey: 'timestamp',
+		accessorkey: 'createdDate',
 		footer: 'Date',
 	},
 	{
@@ -28,7 +28,7 @@ export const usersCols: ColType[] = [
 	},
 	{
 		header: 'Domains',
-		accessorkey: 'domains',
+		accessorkey: 'domainsCount',
 		footer: 'Domains',
 	},
 	{
@@ -45,18 +45,18 @@ export const usersCols: ColType[] = [
 
 export const domainCols: ColType[] = [
 	{
-		header: 'ID',
-		accessorkey: 'id',
-		footer: 'ID',
+		header: 'SN',
+		accessorkey: 'index',
+		footer: 'SN',
 	},
 	{
 		header: 'Date',
-		accessorkey: 'timestamp',
+		accessorkey: 'createdDate',
 		footer: 'Date',
 	},
 	{
 		header: 'Domain',
-		accessorkey: 'value',
+		accessorkey: 'name',
 		footer: 'Domain',
 	},
 	{
@@ -73,5 +73,58 @@ export const domainCols: ColType[] = [
 		header: 'Last Name',
 		accessorkey: 'lastName',
 		footer: 'Last Name',
+	},
+];
+
+export const affiliatesCols: ColType[] = [
+	{
+		header: 'SN',
+		accessorkey: 'index',
+		footer: 'SN',
+	},
+	{
+		header: 'Date',
+		accessorkey: 'createdDate',
+		footer: 'Date',
+	},
+	{
+		header: 'Username',
+		accessorkey: 'username',
+		footer: 'Username',
+	},
+	{
+		header: 'First Name',
+		accessorkey: 'firstName',
+		footer: 'First Name',
+	},
+	{
+		header: 'Last Name',
+		accessorkey: 'lastName',
+		footer: 'Last Name',
+	},
+	{
+		header: 'Wallet',
+		accessorkey: 'wallet',
+		footer: 'Wallet',
+	},
+	{
+		header: 'Total Referrals',
+		accessorkey: 'totalReferralsCount',
+		footer: 'Total Referrals',
+	},
+	{
+		header: 'Today Referrals',
+		accessorkey: 'todayReferralsCount',
+		footer: 'Today Referrals',
+	},
+	{
+		header: 'Total Domains',
+		accessorkey: 'totalDomainsCount',
+		footer: 'Total Domains',
+	},
+	{
+		header: 'Today Domains',
+		accessorkey: 'todayDomainsCount',
+		footer: 'Today Domains',
 	},
 ];

@@ -1,5 +1,11 @@
 import type {PropsWithChildren, ReactNode} from 'react';
 
+export type DataType = {
+	data: {
+		message: string;
+	};
+};
+
 export type StatProps = {
 	id: number;
 	label: string;
@@ -38,6 +44,9 @@ export type ProfileInfoProps = {
 
 export type AvatarProps = {
 	initials: string;
+	borderRadius?: number;
+	width?: number;
+	height?: number;
 };
 
 // Table
@@ -119,27 +128,78 @@ export type UsersData = PropsWithChildren & {
 // };
 export type ColType = {header: string; accessorkey: string; footer: string};
 export type UserType = {
-	id: number;
-	_id?: string;
+	id: string;
+	_id: string;
 	username: string;
 	firstName: string;
 	lastName: string;
 	email: string;
-	domains: number;
+	domainsCount: number;
 	wallet: string;
 	referrerId: string;
 	referrerUsername: string;
-	timestamp: string;
+	createdAt: string;
+	updatedAt: string;
+	active: boolean;
+	// Timestamp: string;
 };
+
+export type UserCellType = {
+	data: {
+		id: string;
+		_id: string;
+		username: string;
+		firstName: string;
+		lastName: string;
+		email: string;
+		domainsCount: number;
+		wallet: string;
+		referrerId: string;
+		referrerUsername: string;
+		createdAt: string;
+		updatedAt: string;
+		active: boolean;
+		// Timestamp: string;
+	};
+};
+
 export type DomainType = {
-	id: number;
-	_id?: string;
+	id: string;
+	_id: string;
 	userId: string;
 	username: string;
 	firstName: string;
 	lastName: string;
-	value: string;
-	timestamp: string;
+	name: string;
+	image_url: string;
+	wallet: string;
+	data: {
+		name: string;
+		description: string;
+		image_url: string;
+		identifier: string;
+	};
+	createdAt: string;
+	updatedAt: string;
+};
+
+export type AffiliateType = UserType & {
+	referrals: UserType[];
+	referralsDomains: DomainType[];
+	todayReferrals: UserType[];
+	todayReferralsDomains: DomainType[];
+	totalReferralsCount: number;
+	todayReferralsCount: number;
+	totalDomainsCount: number;
+	todayDomainsCount: number;
+};
+
+export type StatType = {
+	id: string;
+	totalusers: number;
+	todayUsers: number;
+	totalDomains: number;
+	todayDomains: number;
 };
 
 export type ColsPropType = PropsWithChildren & {
@@ -149,6 +209,8 @@ export type ColsPropType = PropsWithChildren & {
 };
 export type TableData = PropsWithChildren & {
 	data: UserType[] | DomainType[];
+	// DomainData: DomainType;
+	// userData: UserType;
 	fields?: string[];
 	page: number;
 	rowsPerPage: number;

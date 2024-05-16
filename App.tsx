@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 /*
  * @Author: Joshua Eigbe jeigbe@gmail.com
  * @Github: https://github.com/jsh007

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import {type Theme, ThemeProvider, createTheme, useTheme} from '@mui/material/styles';
 import {blue, blueGrey, lightBlue, grey} from '@mui/material/colors';
 import {outlinedInputClasses} from '@mui/material/OutlinedInput';

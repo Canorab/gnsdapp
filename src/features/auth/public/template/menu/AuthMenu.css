@@ -1,0 +1,35 @@
+.auth-menu {
+	/* width: 50%; */
+}
+.auth-menu-links {
+	color: #141441;
+	list-style: none;
+	position: absolute;
+	top: 2.5rem;
+	right: 0.1rem;
+	border-width: 1;
+	border-color: #2929a5;
+	border-style: solid;
+	border-radius: 10px;
+	margin: 0;
+	padding: 15px;
+	background-color: #e1e1e1;
+	width: 120px;
+	/* text-align: right; */
+}
+
+.auth-menu-links::before {
+	content: '';
+	position: absolute;
+	top: -0.6rem;
+	/* right: 1rem; */
+	left: 2.5rem;
+	width: 20px;
+	height: 20px;
+	background-color: #e1e1e1;
+	/* border-left: 1px solid; */
+	transform: rotate(45deg);
+}
+.auth-menu-links .menu-link {
+	padding: 0.5rem 0;
+}

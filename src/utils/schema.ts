@@ -1,6 +1,4 @@
-import {Signup} from 'features/auth/Signup';
 import {z} from 'zod';
-import {zodResolver} from '@hookform/resolvers/zod';
 
 export const signupSchema = z
 	.object({
@@ -12,10 +10,14 @@ export const signupSchema = z
 		// ConfirmPassword: z.string().min(8, {message: 'Requires at least 8 characters'}),
 		email: z.string().email({message: 'Invalid email addreess'}),
 		// Domains: z.number().positive(),
-		// Wallet: z.string().min(1, {message: 'Wallet Address is Required'}),
-		// referrerId: z.string(),
-		// referrerUsername: z.string().min(1, {message: 'Referrer username is Required'}),
-		// timestamp: z.date(), // Timestamp should be auto set by Mongoose in the nodejs app
+		wallet: z
+			.string()
+			.regex(/^0x/, 'Invalid Wallet address - use a polygon chain address')
+			.min(10, {message: 'A valid wallet address is required'})
+			.optional(),
+		// ReferrerId: z.string(),
+		referrerUsername: z.string().min(3, {message: 'Referrer username is Required'}),
+		// Timestamp: z.date(), // Timestamp should be auto set by Mongoose in the nodejs app
 		terms: z.boolean(),
 	})
 	.superRefine(({terms}, ctx) => {
@@ -30,23 +32,34 @@ export const signupSchema = z
 
 export type SignupSchemaType = z.infer<typeof signupSchema>;
 
-export const loginSchema = z
-	.object({
-		username: z.string().min(3, {message: 'Requires atleast 3 characters'}),
-		password: z.string().min(8, {message: 'Requires at least 8 characters'}),
-		terms: z.boolean(),
-	})
-	.superRefine(({terms}, ctx) => {
-		if (!terms) {
-			ctx.addIssue({
-				code: z.ZodIssueCode.custom,
-				message: 'You must accept the terms to proceed',
-				path: ['terms'],
-			});
-		}
-	});
+export const loginSchema = z.object({
+	username: z.string().min(3, {message: 'Requires atleast 3 characters'}),
+	password: z.string().min(8, {message: 'Requires at least 8 characters'}),
+	// Terms: z.boolean(),
+});
+// .superRefine(({terms}, ctx) => {
+// 	if (!terms) {
+// 		ctx.addIssue({
+// 			code: z.ZodIssueCode.custom,
+// 			message: 'You must accept the terms to proceed',
+// 			path: ['terms'],
+// 		});
+// 	}
+// });
 
 export type LoginSchemaType = z.infer<typeof loginSchema>;
+
+export const referralSchema = z.object({
+	referrerUsername: z.string().min(3, {message: 'A valid referral username is required !'}),
+	wallet: z.string().min(8, {message: 'A valid wallet address is required !'}).optional(),
+});
+
+export type ReferralSchemaType = z.infer<typeof referralSchema>;
+
+// Export type ReferralFormProps = {
+// 	referrerUsername: string;
+// 	wallet: string;
+// };
 
 // Export defaultValues: {
 //     firstName: '',

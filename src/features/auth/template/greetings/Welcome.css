@@ -1,8 +1,0 @@
-.welcome-block {
-	display: flex;
-	flex-direction: column;
-}
-.greeting,
-.dash-tip {
-	color: black;
-}
