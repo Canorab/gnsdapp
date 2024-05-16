@@ -1,4 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
 import './index.css';
 
 import {Link, Route, Routes, createBrowserRouter, createRoutesFromElements} from 'react-router-dom';
@@ -11,13 +10,13 @@ import Dashboard from './src/features/dashboard/admin/pages/DashboardPage';
 import DomainsList from './src/features/domains/admin/pages/DomainsList';
 import EditDomain from './src/features/domains/admin/pages/EditDomain';
 import Error404Page from '@/pages/Error404Page';
-import Login from './src/features/auth/admin/pages/LoginPage';
+// Import Login from './src/features/auth/admin/pages/LoginPage';
 import PersistentLogin from '@/features/auth/PersistentLogin';
 import Prefetch from '@/features/auth/Prefetch';
 import ProfilePage from '@/features/dashboard/admin/pages/ProfilePage';
 import RequireAuth from '@/features/auth/RequireAuth';
 import SettingsPage from '@/features/dashboard/admin/pages/SettingsPage';
-import Signup from './src/features/auth/public/pages/SignupPage';
+// Import Signup from './src/features/auth/public/pages/SignupPage';
 import Tasks from '@/features/dashboard/admin/pages/Tasks';
 import UserDashFlow from './src/components/public/navigation/DashFlow';
 import UserDashboard from './src/features/dashboard/public/pages/DashboardPage';
@@ -26,15 +25,20 @@ import UserLogin from './src/features/auth/public/pages/LoginPage';
 import UserReferralsList from './src/features/users/public/pages/UsersListPage';
 import UserTasks from '@/features/dashboard/public/pages/Tasks';
 import UsersList from './src/features/users/admin/pages/UsersListPage';
+/* eslint-disable react/react-in-jsx-scope */
+import {lazy} from 'react';
 import {roles} from '@/config/roles';
+
+const Signup = lazy(async () => import('@features/auth/public/pages/SignupPage'));
+const Login = lazy(async () => import('@features/auth/admin/pages/LoginPage'));
 
 export const Router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path='/' element={<AppFlow />} errorElement={<Error404Page />}>
 			{/* Public Routes */}
 			<Route index element={<UserLogin />} />
-			<Route path='/signup' element={<Signup />} />
-			<Route path='/admin' element={<Login />} />
+			<Route path='signup' element={<Signup />} />
+			<Route path='admin' element={<Login />} />
 
 			<Route element={<PersistentLogin />}>
 				{/* 

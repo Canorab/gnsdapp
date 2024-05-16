@@ -52,7 +52,7 @@ function AffiliatesListPage() {
 	const allAffiliates = useSelector(affiliatesSelectors.selectAll);
 
 	const allUsers = allAffiliates;
-	console.log('From Affilates page:', allUsers);
+	// Console.log('From Affilates page:', allUsers);
 
 	// CONTENT VARIABLE
 	let content: ReactNode;
