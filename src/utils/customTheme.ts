@@ -18,7 +18,7 @@ export const customTheme = (outerTheme: Theme) =>
 						'& label.Mui-focused': {
 							color: grey[500],
 						},
-						'&.MuiFormHelperText-root, .Mui-error': {
+						'&.MuiFormHelperText-root,.Mui-error': {
 							color: '#ffa7a7',
 						},
 					},
