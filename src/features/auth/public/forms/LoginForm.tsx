@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {Controller, useForm} from 'react-hook-form';
 import {type LoginSchemaType, loginSchema, signupSchema} from '@/utils/schema';
 import React, {useCallback, useEffect} from 'react';
@@ -14,7 +15,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import InputBase from '@mui/material/InputBase';
 import Paper from '@mui/material/Paper';
-import {AccountCircle, CheckBox, PersonOutline} from '@mui/icons-material';
+import {AccountCircle, CheckBox, Lock, PersonOutline} from '@mui/icons-material';
 import TextField from '@mui/material/TextField';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {ThemeProvider, createTheme} from '@mui/material';
@@ -65,14 +66,27 @@ function LoginForm() {
 
 		try {
 			const {accessToken} = await login(data).unwrap();
+
 			dispatch(setCredentials({accessToken}));
 		} catch (error) {
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-expect-error
 			if (error?.status === 'FETCH_ERROR') {
 				setError('root.serverError', {
 					type: 'server',
 					message: 'Network or internet Error',
+				});
+			}
+
+			// @ts-expect-error
+			if (error?.status === 404) {
+				// SetError('username', {
+				// 	type: 'server',
+				// 	message: 'Username taken, try another one !',
+				// 	// Message: error?.data?.message,
+				// });
+				setError('root.serverError', {
+					type: 'server',
+					message: 'Invalid Login Credentials',
 				});
 			}
 		}
@@ -131,7 +145,7 @@ function LoginForm() {
 									id='password'
 									label='Password'
 									variant='filled'
-									type='text'
+									type='password'
 									error={Boolean(errors.password)}
 									helperText={errors.password?.message}
 									{...field}
@@ -140,7 +154,7 @@ function LoginForm() {
 										startAdornment: (
 											<InputAdornment position='start'>
 												{/* <AccountCircle /> */}
-												<PersonOutline />
+												<Lock />
 											</InputAdornment>
 										),
 									}}

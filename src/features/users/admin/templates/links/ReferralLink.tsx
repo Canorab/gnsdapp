@@ -11,9 +11,12 @@ import {
 import React, {useEffect, useState} from 'react';
 
 import CopyToClipboard from 'react-copy-to-clipboard';
+import {useLocation} from 'react-router-dom';
 
 function ReferralLink({username}: {username: string}) {
-	const refLink = `http://localhost:5173/signup?ref=${username}`;
+	// Const refLink = `http://localhost:5173/signup?ref=${username}`;
+	const refLink = `${import.meta.env.REACT_APP_SIGNUP_BASE_URL}?ref=${username}`;
+
 	const [link, setLink] = useState('');
 	// Const [link, setLink] = useState('');
 	const [copyStatus, setCopyStatus] = useState(false);

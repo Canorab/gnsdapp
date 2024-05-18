@@ -31,9 +31,9 @@ export type AccessTokenType = {
 
 // Base query
 const baseQuery = fetchBaseQuery({
-	// BaseUrl: 'http://localhost:5001/api/',
-	// baseUrl: "https://serv1.gtxstream.com/api/",
-	baseUrl: 'https://gnsserv1.onrender.com/api/',
+	baseUrl: 'http://localhost:5001/api/',
+	// BaseUrl: "https://serv1.gtxstream.com/api/",
+	// baseUrl: 'https://gnsserv1.onrender.com/api/',
 	credentials: 'include',
 	prepareHeaders(headers, {getState}) {
 		const {token} = (getState() as RootState).auth;

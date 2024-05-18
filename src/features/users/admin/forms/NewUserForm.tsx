@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable react/react-in-jsx-scope */
 import './NewuserForm.css';
 
-import {AccountBalanceWallet, Email, People, PersonOutline} from '@mui/icons-material';
+import {AccountBalanceWallet, Email, Lock, People, PersonOutline} from '@mui/icons-material';
 import {
 	Button,
 	Checkbox,
@@ -245,8 +246,7 @@ function NewUserForm({wallet, referrerUsername}: ReferralSchemaType) {
 									InputProps={{
 										startAdornment: (
 											<InputAdornment position='start'>
-												{/* <AccountCircle /> */}
-												<PersonOutline />
+												<Lock />
 											</InputAdornment>
 										),
 									}}

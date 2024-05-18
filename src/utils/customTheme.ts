@@ -18,6 +18,9 @@ export const customTheme = (outerTheme: Theme) =>
 						'& label.Mui-focused': {
 							color: grey[500],
 						},
+						'&.MuiFormHelperText-root, .Mui-error': {
+							color: '#ffa7a7',
+						},
 					},
 				},
 			},
@@ -47,9 +50,11 @@ export const customTheme = (outerTheme: Theme) =>
 						},
 						'&:hover:not(.Mui-disabled, .Mui-error):before': {
 							borderBottom: '2px solid var(--TextField-brandBorderHoverColor)',
+							// BorderBottom: '2px solid brown',
 						},
 						'&.Mui-focused:after': {
 							borderBottom: '2px solid var(--TextField-brandBorderFocusedColor)',
+							// BorderBottom: '2px solid green',
 						},
 						'&.MuiFilledInput-root': {
 							background: '#fff',

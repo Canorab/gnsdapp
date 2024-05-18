@@ -14,7 +14,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import InputBase from '@mui/material/InputBase';
 import Paper from '@mui/material/Paper';
-import {AccountCircle, CheckBox, PersonOutline} from '@mui/icons-material';
+import {AccountCircle, CheckBox, Lock, PersonOutline} from '@mui/icons-material';
 import TextField from '@mui/material/TextField';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {ThemeProvider, createTheme} from '@mui/material';
@@ -153,7 +153,7 @@ function LoginForm() {
 									id='password'
 									label='Password'
 									variant='filled'
-									type='text'
+									type='password'
 									error={Boolean(errors.password)}
 									helperText={errors.password?.message}
 									{...field}
@@ -161,8 +161,7 @@ function LoginForm() {
 									InputProps={{
 										startAdornment: (
 											<InputAdornment position='start'>
-												{/* <AccountCircle /> */}
-												<PersonOutline />
+												<Lock />
 											</InputAdornment>
 										),
 									}}
