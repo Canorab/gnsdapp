@@ -19,7 +19,7 @@ export const customTheme = (outerTheme: Theme) =>
 							color: grey[500],
 						},
 						'&.MuiFormHelperText-root,.Mui-error': {
-							color: '#ffa7a7',
+							color: '#ffa7a7 !important',
 						},
 					},
 				},

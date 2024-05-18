@@ -8,7 +8,8 @@ import {useLocation} from 'react-router-dom';
 
 function ReferralLink({username}: {username: string}) {
 	// Const refLink = `http://localhost:5173/signup?ref=${username}`;
-	const refLink = `${import.meta.env.REACT_APP_SIGNUP_BASE_URL}?ref=${username}`;
+	// const refLink = `${import.meta.env.REACT_APP_SIGNUP_BASE_URL}?ref=${username}`;
+	const refLink = `https://app.gtxstream.com/signup?ref=${username}`;
 	const [link, setLink] = useState('');
 	const [copyStatus, setCopyStatus] = useState(false); // To indicate if the text was copied
 
