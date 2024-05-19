@@ -41,7 +41,7 @@ function PersistentLogin() {
 
 	useEffect(() => {
 		// || process.env.NODE_ENV !== 'production'
-		if (effectRan.current) {
+		if (effectRan.current || process.env.NODE_ENV === 'production') {
 			const verifyRefreshToken = async () => {
 				// Console.log('...verifying Refresh Token');
 				try {
