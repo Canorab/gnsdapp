@@ -87,6 +87,8 @@ function DomainsList() {
 			</div>
 		);
 
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-expect-error
 	if (isError && error?.status === 403)
 		content = (
 			<div
