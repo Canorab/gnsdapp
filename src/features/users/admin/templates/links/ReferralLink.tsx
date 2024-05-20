@@ -35,12 +35,12 @@ function ReferralLink({username}: {username: string}) {
 
 	return (
 		<div style={{display: 'flex', borderWidth: 1, borderColor: '#b9b9b9'}} className='ref-link'>
-			<h2 className='text-gray-300 text-xl overflow-hidden aff-link'>{link}</h2>
+			<h2 className='text-gray-300 text-xl overflow-hidden aff-link mr-1'>{link}</h2>
 			<CopyToClipboard text={link} onCopy={onCopyText}>
 				{copyStatus ? (
 					<CheckBox className='text-green-400 cursor-pointer' />
 				) : (
-					<ContentCopy className='text-gray-700 cursor-pointer' />
+					<ContentCopy className='text-yellow-400 cursor-pointer' />
 				)}
 			</CopyToClipboard>
 			{/* {copyStatus && <p>copied!</p>} */}

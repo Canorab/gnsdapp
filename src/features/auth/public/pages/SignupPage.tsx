@@ -30,14 +30,15 @@ function Signup() {
 	// const domains = 0; // Fetch the current user's nft domains via the opensea api using their connected wallet
 	// const walletAddress = '1ARkLRp38WHR2JRsLQVYPRYorV5CPmiFPU';
 	const walletAddress = '0x2672c5D6e73dcb98F241D95FE33CBD545Fac9CeE';
+	const walletAddress2 = '0x2672c5D6e73dcb98F241D95FE33CBD545Fac9CeA';
 	// Const referrerId = '';
 	const [isConnect, setIsConnect] = useState(false); // Pass this into the Form's props
 	const [wallet, setWallet] = useState<string | undefined>(''); // Pass this into the Form's props
-	const [btnLabel, setBtnLabel] = useState('Connect'); // Pass this into the Form's props
+	const [btnLabel, setBtnLabel] = useState('Connect Wallet'); // Pass this into the Form's props
 	// const [domains, setDomains] = useState(1); // Pass this into the Form's props
 	// Const routeParams = useParams();
 	// const location = useLocation();
-	console.log(searchParams.get('ref'));
+	// console.log(searchParams.get('ref'));
 
 	const handleConnect = async () => {
 		await connect();
@@ -57,7 +58,7 @@ function Signup() {
 				//   BtnEl.innerText = 'Disconnect'
 				setBtnLabel('Disconnect');
 			} else {
-				setBtnLabel('Connect');
+				setBtnLabel('Connect Wallet');
 			}
 		},
 	});
@@ -81,6 +82,7 @@ function Signup() {
 					)} */}
 				</div>
 				<NewUserForm wallet={wallet} referrerUsername={referralUsername!} />
+				{/* <NewUserForm wallet={walletAddress2} referrerUsername={referralUsername!} /> */}
 			</div>
 		</div>
 	);

@@ -68,20 +68,47 @@ export const domainsApiSlice = apiSlice.injectEndpoints({
 				return currentArg !== previousArg;
 			},
 		}),
+		getUserReferralsDomains: builder.query<EntityState<DomainType, string>, string>({
+			// Query: () => 'users'
+			query: (username) => ({
+				url: `users/referrals/domains/${username}`,
+				validateStatus: (response, result) => response.status === 200 && !result.isError,
+			}),
+			transformResponse(responseData: DomainType[], meta, args) {
+				const loadedDomains = responseData.map((domain) => {
+					domain.id = domain._id;
+					return domain;
+				});
+				return domainsAdapter.setAll(initialState, loadedDomains);
+			},
+			providesTags(result, error, arg) {
+				if (result?.ids) {
+					return [
+						{type: 'Domain', id: 'LIST'},
+						...result.ids.map((id) => ({type: 'Domain' as const, id})),
+					];
+				}
+
+				return [{type: 'Domain', id: 'LIST'}];
+				// Return result ? result.map(({id}) => ({type: 'Posts', id})) : [];
+			},
+			forceRefetch({currentArg, previousArg}) {
+				return currentArg !== previousArg;
+			},
+		}),
 	}),
 });
 
-export const {useGetDomainsQuery, useGetUserDomainsQuery} = domainsApiSlice;
+export const {useGetDomainsQuery, useGetUserDomainsQuery, useGetUserReferralsDomainsQuery} =
+	domainsApiSlice;
 
 // Returns the query result object for the getusers query. i.e results from /users endpoint
 export const selectAllDomainsResult = domainsApiSlice.endpoints.getDomains.select();
-
 // Creates memoized selector
 const selectAllDomainsData = createSelector(
 	selectAllDomainsResult,
 	(usersResult) => usersResult.data, // Normalized state object with ids & entities
 );
-
 export const domainsSelectors = domainsAdapter.getSelectors(
 	(state: RootState) => selectAllDomainsData(state) ?? initialState,
 );

@@ -1,7 +1,7 @@
 import {type EntityState, createEntityAdapter, createSelector} from '@reduxjs/toolkit';
 
 import {apiSlice} from '../../app/api/apiSlice';
-import {type UserType} from '@/types/propTypes';
+import {DomainType, type UserType} from '@/types/propTypes';
 import {type RootState} from '@/app/store';
 
 export const usersAdapter = createEntityAdapter<UserType>({
@@ -16,19 +16,6 @@ export const initialState = usersAdapter.getInitialState();
 // }
 export const usersApiSlice = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
-		// 	ProvidesTags(result, error, arg) {
-		// 		if (result) {
-		// 			return [
-		// 				{type: 'User', id: 'LIST'},
-		// 				...result.map(({id}) => ({type: 'User' as const, id})),
-		// 			];
-		// 		}
-
-		// 		return [{type: 'User', id: 'LIST'}];
-		// 	},
-		// }),
-		// <UserType[], void>
-		// : {result: {user: UserType}}
 		getUsers: builder.query<EntityState<UserType, string>, string | void>({
 			// Query: () => 'users'
 			query: () => ({

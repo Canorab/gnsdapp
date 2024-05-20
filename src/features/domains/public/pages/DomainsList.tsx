@@ -8,10 +8,11 @@ import {domainCols} from '@/utils/constants';
 import useAuth from '@/hooks/useAuth';
 import useSelectUserReferrals from '@/hooks/useSelectUserReferrals';
 import {useSelector} from 'react-redux';
-import {useGetUserDomainsQuery} from '../../domainsApiSlice';
+import {useGetUserDomainsQuery, useGetUserReferralsDomainsQuery} from '../../domainsApiSlice';
 import useSelectUserDomains from '@/hooks/useSelectUserDomains';
 import CircularProgress from '@mui/material/CircularProgress';
 import {Link} from 'react-router-dom';
+import useSelectUserReferralsDomains from '@/hooks/useSelectUserReferralsDomains';
 
 /*
 Get the wallet address of the currently logged in user's redux state and use it to query
@@ -27,20 +28,31 @@ function DomainsList() {
 
 	// GET AUTH USER'S REFERRALS
 	// Prefect the Auth user's referrals
-	const {isLoading, isFetching, isSuccess, isError, error} = useGetUserDomainsQuery(
+	const {isLoading, isFetching, isSuccess, isError, error} = useGetUserReferralsDomainsQuery(
 		authUser.username,
 	);
 
 	// Custom Hook
-	const userDomainsSelector = useSelectUserDomains(authUser.username);
+	const userReferralsDomainsSelector = useSelectUserReferralsDomains(authUser.username);
 
-	const allData = useSelector(userDomainsSelector.selectAll);
+	const allData = useSelector(userReferralsDomainsSelector.selectAll);
 	// Console.log('All Auth User Referrals', allData);
-	// Render loading indictator
+
+	// // Prefect the Auth user's referrals
+	// const {isLoading, isFetching, isSuccess, isError, error} = useGetUserDomainsQuery(
+	// 	authUser.username,
+	// );
+
+	// // Custom Hook
+	// const userDomainsSelector = useSelectUserDomains(authUser.username);
+
+	// const allData = useSelector(userDomainsSelector.selectAll);
+	// // Console.log('All Auth User Referrals', allData);
 
 	// CONTENT VARIABLE
 	let content: ReactNode;
 
+	// Render loading indictator
 	if (isLoading || isFetching)
 		content = (
 			<div
@@ -67,13 +79,33 @@ function DomainsList() {
 					alignItems: 'center',
 				}}>
 				<p className='errmsg'>
+					{`${(error as DataType)?.data?.message}`}
+					{/* <Link style={{fontWeight: 'bold'}} to='/'>
+						Please login again
+					</Link> */}
+				</p>
+			</div>
+		);
+
+	if (isError && error?.status === 403)
+		content = (
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: 'column',
+					gap: 50,
+					marginTop: 80,
+					justifyContent: 'center',
+					alignItems: 'center',
+				}}>
+				<p className='errmsg'>
 					{`${(error as DataType)?.data?.message} - `}
 					<Link style={{fontWeight: 'bold'}} to='/'>
 						Please login again
 					</Link>
 				</p>
 			</div>
-		);
+		); // Content = <h4 className='errmsg'>{error?.data?.message}</h4>;
 
 	const handleChange = useCallback(
 		debounce((value: string) => {

@@ -4,18 +4,19 @@ import React, {useMemo} from 'react';
 import {type RootState} from '@/app/store';
 import domainsApiSlice, {domainsAdapter, initialState} from '@/features/domains/domainsApiSlice';
 
-function useSelectUserDomains(selectorId: string | typeof skipToken) {
+function useSelectUserReferralsDomains(selectorId: string | typeof skipToken) {
 	return useMemo(() => {
-		const selectUserDomainsCacheEntry = domainsApiSlice.endpoints.getUserDomains.select(selectorId);
-		const selectAllUserDomainsData = createSelector(
-			[selectUserDomainsCacheEntry],
+		const selectUserReferralsDomainsCacheEntry =
+			domainsApiSlice.endpoints.getUserReferralsDomains.select(selectorId);
+		const selectAllUserReferralsDomainsData = createSelector(
+			[selectUserReferralsDomainsCacheEntry],
 			(cacheResults) => cacheResults.data,
 		);
 		return domainsAdapter.getSelectors(
-			(state: RootState) => selectAllUserDomainsData(state) ?? initialState,
+			(state: RootState) => selectAllUserReferralsDomainsData(state) ?? initialState,
 		);
 		// Return userReferralsSelector;
 	}, [selectorId]);
 }
 
-export default useSelectUserDomains;
+export default useSelectUserReferralsDomains;

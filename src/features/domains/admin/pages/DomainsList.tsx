@@ -55,13 +55,33 @@ function DomainsList() {
 					alignItems: 'center',
 				}}>
 				<p className='errmsg'>
+					{`${(error as DataType)?.data?.message}`}
+					{/* <Link style={{fontWeight: 'bold'}} to='/'>
+						Please login again
+					</Link> */}
+				</p>
+			</div>
+		);
+
+	if (isError && error?.status === 403)
+		content = (
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: 'column',
+					gap: 50,
+					marginTop: 80,
+					justifyContent: 'center',
+					alignItems: 'center',
+				}}>
+				<p className='errmsg'>
 					{`${(error as DataType)?.data?.message} - `}
 					<Link style={{fontWeight: 'bold'}} to='/'>
 						Please login again
 					</Link>
 				</p>
 			</div>
-		);
+		); // Content = <h4 className='errmsg'>{error?.data?.message}</h4>;
 
 	const handleChange = useCallback(
 		debounce((value: string) => {
