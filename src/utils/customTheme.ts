@@ -9,6 +9,15 @@ export const customTheme = (outerTheme: Theme) =>
 			mode: outerTheme.palette.mode,
 		},
 		components: {
+			MuiCheckbox: {
+				styleOverrides: {
+					root: {
+						'&.MuiFormHelperText-root,.Mui-error': {
+							color: '#ffa7a7 !important',
+						},
+					},
+				},
+			},
 			MuiTextField: {
 				styleOverrides: {
 					root: {

@@ -79,3 +79,6 @@ button:focus-visible {
 }
 
 /* Custom styles */
+.css-1wc848c-MuiFormHelperText-root.Mui-error {
+	color: #ffa7a7 !important;
+}

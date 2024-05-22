@@ -164,7 +164,7 @@ function NewUserForm({wallet, referrerUsername}: ReferralSchemaType) {
 							render={({field}) => (
 								<TextField
 									id='username'
-									label='UserName'
+									label='Username'
 									variant='filled'
 									type='text'
 									error={Boolean(errors.username)}

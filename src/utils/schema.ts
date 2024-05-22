@@ -4,7 +4,7 @@ export const signupSchema = z
 	.object({
 		// _id: z.string(),
 		firstName: z.string().min(2, {message: 'Requires at least 2 characters'}),
-		lastName: z.string().min(2, {message: 'Requires at least 2 characters 1'}),
+		lastName: z.string().min(2, {message: 'Requires at least 2 characters'}),
 		username: z.string().min(3, {message: 'Requires at least 3 characters'}),
 		password: z.string().min(8, {message: 'Requires at least 8 characters'}),
 		// ConfirmPassword: z.string().min(8, {message: 'Requires at least 8 characters'}),
