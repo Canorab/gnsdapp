@@ -25,9 +25,9 @@
 }
 
 @media only screen and (max-width: 550px) {
-	.signup-page {
+	/* .signup-page {
 		height: auto;
-	}
+	} */
 
 	.form-wrapper {
 		padding-top: 2rem;

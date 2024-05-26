@@ -138,7 +138,7 @@ function NewUserForm({wallet, referrerUsername}: ReferralSchemaType) {
 		<div>
 			<div className='title-wrapper w-full flex justify-between items-center mb-8 '>
 				<img src='/images/gtx-stream-logo1.png' className={'w-32'} alt='' />
-				<h2 className='text-2xl font-bold text-center'>Sign Up</h2>
+				<h2 className='text-2xl font-bold text-center text-gray-50'>Sign Up</h2>
 			</div>
 			<ThemeProvider theme={customTheme(theme)}>
 				<form onSubmit={handleSubmit(onSubmit)}>
@@ -339,6 +339,7 @@ function NewUserForm({wallet, referrerUsername}: ReferralSchemaType) {
 										{...field}
 										control={<Checkbox {...field} />}
 										label='Accept terms and conditions'
+										sx={{color: '#ffff'}}
 									/>
 									{errors.terms && <FormHelperText> {errors.terms.message} </FormHelperText>}
 								</FormControl>

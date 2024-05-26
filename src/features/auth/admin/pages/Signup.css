@@ -6,7 +6,7 @@
 	align-items: center;
 	width: 100vw;
 	height: 100vh;
-	height: auto;
+	/* height: auto; */
 }
 .form-wrapper {
 	display: flex;
@@ -25,9 +25,9 @@
 }
 
 @media only screen and (max-width: 550px) {
-	.signup-page {
+	/* .signup-page {
 		height: auto;
-	}
+	} */
 
 	.form-wrapper {
 		padding-top: 2rem;

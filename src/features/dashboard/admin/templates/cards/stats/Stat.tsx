@@ -33,8 +33,8 @@ function Stat({data}: StatProps) {
 	return (
 		<div className='card'>
 			<div className='text-block'>
-				<h3 className='font-bold text-xl'>{data.label}</h3>
-				<h2 className='font-bold text-2xl'> {data.value} </h2>
+				<h3 className='font-bold text-xl text-gray-50'>{data.label}</h3>
+				<h2 className='font-bold text-2xl text-gray-50'> {data.value} </h2>
 			</div>
 			<div className='icon-block'>
 				{/* <PeopleAlt className='card-icon' style={{fontSize: 60}} /> */}
