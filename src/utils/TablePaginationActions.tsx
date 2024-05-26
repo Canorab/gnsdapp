@@ -37,22 +37,38 @@ export function TablePaginationActions({
 				onClick={handleFirstPageButtonClick}
 				disabled={page === 0}
 				aria-label='first page'>
-				{theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
+				{theme.direction === 'rtl' ? (
+					<LastPageIcon sx={{color: '#ffff'}} />
+				) : (
+					<FirstPageIcon sx={{color: '#ffff'}} />
+				)}
 			</IconButton>
 			<IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label='previous page'>
-				{theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+				{theme.direction === 'rtl' ? (
+					<KeyboardArrowRight sx={{color: '#ffff'}} />
+				) : (
+					<KeyboardArrowLeft sx={{color: '#ffff'}} />
+				)}
 			</IconButton>
 			<IconButton
 				onClick={handleNextButtonClick}
 				disabled={page >= Math.ceil(count / rowsPerPage) - 1}
 				aria-label='next page'>
-				{theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+				{theme.direction === 'rtl' ? (
+					<KeyboardArrowLeft sx={{color: '#ffff'}} />
+				) : (
+					<KeyboardArrowRight sx={{color: '#ffff'}} />
+				)}
 			</IconButton>
 			<IconButton
 				onClick={handleLastPageButtonClick}
 				disabled={page >= Math.ceil(count / rowsPerPage) - 1}
 				aria-label='last page'>
-				{theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
+				{theme.direction === 'rtl' ? (
+					<FirstPageIcon sx={{color: '#ffff'}} />
+				) : (
+					<LastPageIcon sx={{color: '#ffff'}} />
+				)}
 			</IconButton>
 		</Box>
 	);

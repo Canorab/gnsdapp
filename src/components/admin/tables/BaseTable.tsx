@@ -67,10 +67,14 @@ function BaseTable({cols, data}: Pick<ColsPropType, 'cols'> & Pick<TableData, 'd
 	return (
 		// Component={Paper}
 		// rgba(255,255,255,0.3)
-		<Paper sx={{height: '100%', background: 'rgba(255, 255, 255, 0.3)'}}>
+		<Paper sx={{height: '100%', background: 'rgb(20, 20, 65);'}}>
 			<TableContainer sx={{maxHeight: 500}}>
 				<Table
-					sx={{minWidth: 650, '& th': {background: 'rgba(255, 255, 255, 0.3)'}}}
+					sx={{
+						minWidth: 650,
+						'& th': {background: 'rgb(255, 255, 255);'},
+						'& td': {color: '#ffff'},
+					}}
 					aria-label='Table'
 					stickyHeader>
 					<TableHeader cols={cols} sortHandler={handleSortRequest} sortDirection={orderDirection} />
@@ -96,6 +100,7 @@ function BaseTable({cols, data}: Pick<ColsPropType, 'cols'> & Pick<TableData, 'd
 				onPageChange={handleChangePage}
 				onRowsPerPageChange={handleChangeRowsPerPage}
 				ActionsComponent={TablePaginationActions}
+				sx={{color: '#ffff'}}
 			/>
 		</Paper>
 	);

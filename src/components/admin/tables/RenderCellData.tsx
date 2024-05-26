@@ -54,7 +54,8 @@ function RenderCellData({
 				'&:last-child td, &:last-child th': {border: 0},
 				'& td': {fontSize: '1rem'},
 				'& td.highlightedcell.css-177gid-MuiTableCell-root': {
-					color: ' #121213',
+					// color: ' #121213',
+					color: ' #ffff',
 					fontWeight: 'bold',
 				}, // #1da1f2
 			}}>

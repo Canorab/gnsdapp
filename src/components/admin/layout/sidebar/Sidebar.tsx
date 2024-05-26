@@ -1,12 +1,13 @@
 /* eslint-disable react/react-in-jsx-scope */
 // prettier-ignore
 import './SidebarNavs.css';
-import {ChevronFirst, ChevronLast, MoreVertical} from 'lucide-react';
+import './Sidebar.css';
+import {ChevronFirst, ChevronLast, Menu, MoreVertical, X} from 'lucide-react';
 import {createContext, useContext, useEffect, useState} from 'react';
 
 import {type SidebarProps} from '@/types/propTypes';
 import {type SidebarContextType} from '@/types/stateTypes';
-import {Logout} from '@mui/icons-material';
+import {Logout, MenuOpen} from '@mui/icons-material';
 import {useSendLogoutMutation} from '@/features/auth/authApiSlice';
 import {useNavigate} from 'react-router-dom';
 import useAuth from '@/hooks/useAuth';
@@ -19,6 +20,8 @@ export default function Sidebar({children}: SidebarProps) {
 	const [expanded, setExpanded] = useState(true);
 	const [sendLogout] = useSendLogoutMutation();
 	const navigate = useNavigate();
+	// Mobile menu
+	const [menuOpen, setMenuOpen] = useState(false);
 
 	const userInitals = username?.substring(0, 2).toLocaleUpperCase();
 
@@ -30,7 +33,7 @@ export default function Sidebar({children}: SidebarProps) {
 
 	return (
 		<aside className='h-screen'>
-			<nav className='h-full flex flex-col border-r shadow-sm'>
+			<nav className='h-full flex flex-col lg:border-r shadow-sm'>
 				{/* Header */}
 				<div className='p-4 pb-2 flex justify-between items-center'>
 					<img
@@ -38,33 +41,55 @@ export default function Sidebar({children}: SidebarProps) {
 						className={`overflow-hidden transition-all ${expanded ? 'w-32' : 'w-0'}`}
 						alt=''
 					/>
+					{/* Desktop menu Icon */}
 					<button
 						onClick={() => {
 							setExpanded((curr) => !curr);
 						}}
-						className='p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100'>
+						className='max-sm:hidden p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100'>
 						{expanded ? <ChevronFirst color='black' /> : <ChevronLast color='#000' />}
 					</button>
+					{/* Mobile menu Icon */}
+					<button
+						onClick={() => {
+							// SetExpanded((curr) => !curr);
+							setMenuOpen(!menuOpen);
+						}}
+						className='lg:hidden md:hidden p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100'>
+						{menuOpen ? <X color='#000' /> : <Menu color='#000' />}
+					</button>
+
+					{/* <MenuOpen /> */}
 				</div>
 				{/* Links */}
 				<SidebarContext.Provider value={{expanded}}>
-					<ul className='flex-1 px-3'>{children}</ul>
+					{menuOpen ? (
+						<ul className='open flex-1 px-3 lg:hidden'>{children}</ul>
+					) : (
+						<ul className='flex-1 px-3 max-sm:hidden'>{children}</ul>
+					)}
 				</SidebarContext.Provider>
 				{/* Footer */}
 				<div className='border-t flex p-3 sidebar-userinfo'>
-					<Avatar initials={userInitals} borderRadius={8} width={50} height={50} />
+					<Avatar
+						initials={userInitals}
+						borderRadius={8}
+						width={50}
+						height={50}
+						background='#27275a'
+					/>
 					<div
 						className={`
               flex justify-between items-center
               overflow-hidden transition-all ${expanded ? 'w-52 ml-3' : 'w-0'}
           `}>
 						<div className='leading-4'>
-							<h4 className='font-semibold text-gray-600'> {username} </h4>
-							<span className='text-xs text-gray-600'> {email} </span>
+							<h4 className='font-semibold text-gray-100'> {username} </h4>
+							<span className='text-xs text-gray-100'> {email} </span>
 						</div>
 						{/* <MoreVertical size={20} className='text-gray-600' /> */}
 						<Logout
-							className='text-gray-900 cursor-pointer'
+							className='text-gray-200 cursor-pointer'
 							onClick={async (e) => {
 								// Alert('Logged out !');
 								const result = await sendLogout(null);

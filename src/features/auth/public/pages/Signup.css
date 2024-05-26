@@ -6,6 +6,7 @@
 	align-items: center;
 	width: 100vw;
 	height: 100vh;
+	/* height: auto; */
 }
 .form-wrapper {
 	display: flex;
@@ -13,6 +14,7 @@
 	justify-items: center;
 	/* align-items: center; */
 	align-items: center;
+	padding-top: 0;
 	/* width: 400px; */
 }
 
@@ -20,4 +22,14 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+}
+
+@media only screen and (max-width: 550px) {
+	.signup-page {
+		height: auto;
+	}
+
+	.form-wrapper {
+		padding-top: 2rem;
+	}
 }

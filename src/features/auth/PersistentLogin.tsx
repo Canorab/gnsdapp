@@ -92,6 +92,7 @@ function PersistentLogin() {
 			<div
 				className='loading-state'
 				style={{
+					width: '100vw',
 					display: 'flex',
 					flexDirection: 'column',
 					justifyContent: 'center',

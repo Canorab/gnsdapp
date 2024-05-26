@@ -44,7 +44,7 @@ function Stat({data}: StatProps) {
 						size='lg'
 						type={data.icon === 'globe' ? 'regular' : 'solid'}
 						name={data.icon}
-						color='rgba(44, 41, 65, 0.5)'></box-icon>
+						color='rgba(206, 206, 208, 0.5)'></box-icon>
 				}
 				{/* {<i className={`bx ${data.icon}`}></i>} */}
 			</div>

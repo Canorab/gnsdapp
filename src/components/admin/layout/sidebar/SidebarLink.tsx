@@ -24,7 +24,7 @@ export function SidebarLink({icon, label, active, alert, link}: SidebarLinkProps
 		  ${
 				active
 					? 'bg-gradient-to-tr from-sky-200 to-sky-100 text-sky-700'
-					: 'hover:bg-indigo-50 text-gray-900'
+					: 'hover:bg-gradient-to-tr from-indigo-900 to-indigo-700 text-gray-100'
 			}
 	  `}>
 				{icon}

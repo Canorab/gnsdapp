@@ -1,0 +1,13 @@
+@media (max-width: 480px) {
+	.desktop-menu {
+		/* display: none; */
+	}
+}
+
+li.logout-link {
+	margin-top: 1.5rem;
+	margin-bottom: 0.5rem;
+	text-align: right;
+	font-weight: 700;
+	color: #ffff;
+}

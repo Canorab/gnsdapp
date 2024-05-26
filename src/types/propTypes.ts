@@ -47,6 +47,7 @@ export type AvatarProps = {
 	borderRadius?: number;
 	width?: number;
 	height?: number;
+	background?: string;
 };
 
 // Table

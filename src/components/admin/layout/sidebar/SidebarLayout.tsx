@@ -2,23 +2,30 @@ import './SidebarLayout.css';
 
 import {AssignmentInd, Diamond, Logout, Redeem} from '@mui/icons-material';
 import {Globe, Home, NotebookPen, Settings, Users} from 'lucide-react';
-import {useLocation, useParams} from 'react-router-dom';
+import React, {useContext} from 'react';
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
 
-import React from 'react';
 import Sidebar from './Sidebar';
+import {SidebarContext} from '@/components/admin/layout/sidebar/Sidebar';
 import {SidebarLink} from './SidebarLink';
-
-// Const SidebarContext = createContext({expanded: false});
+import {useSendLogoutMutation} from '@/features/auth/authApiSlice';
 
 function SidebarLayout() {
 	// Const activePath = useParams();
 	// console.log(activePath);
+	// const {menuOpen} = useContext(SidebarContext)!;
+	const handleLogout = () => {
+		// SendLogout();
+		// navigate("/");
+		const navigate = useNavigate();
+		const [sendLogout] = useSendLogoutMutation();
+		const handleLogout = async () => {
+			const result = await sendLogout(null);
+			// Console.log(result);
 
-	// const handleLogout = () => {
-	// 	// SendLogout();
-	// 	// navigate("/");
-	// 	alert('Logout Clicked !');
-	// };
+			navigate('/');
+		};
+	};
 
 	const currentPath = useLocation();
 	// Console.log(currentPath);
@@ -58,6 +65,14 @@ function SidebarLayout() {
 					active={currentPath.pathname === '/admindash/users/tasks'}
 					link='/admindash/users/tasks'
 				/>
+				<li
+					className='lg:hidden md:hidden logout-link cursor-pointer text-gray-900'
+					onClick={handleLogout}>
+					<Logout fontSize='medium' /> <span>Logout</span>
+				</li>
+				{/* <li className='menu-link cursor-pointer text-gray-900' onClick={handleLogout}>
+					<Logout fontSize='large' /> <span>Logout</span>
+				</li> */}
 				{/* <SidebarLink
 					icon={<Settings />}
 					label='Settings'

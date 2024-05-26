@@ -7,7 +7,13 @@ import React from 'react';
 You can import a MUI Avatar into this file or create your own custom avatar using the user's First name initials
 */
 
-function Avatar({initials, borderRadius = 60, width = 60, height = 60}: AvatarProps) {
+function Avatar({
+	initials,
+	borderRadius = 60,
+	width = 60,
+	height = 60,
+	background = '#141441',
+}: AvatarProps) {
 	return (
 		<div
 			style={{
@@ -16,7 +22,7 @@ function Avatar({initials, borderRadius = 60, width = 60, height = 60}: AvatarPr
 				alignItems: 'center',
 				// Position: 'relative',
 				// background: 'black',
-				background: '#141441',
+				background,
 				borderRadius,
 				width,
 				height,

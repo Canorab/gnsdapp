@@ -18,7 +18,7 @@ function TableHeader({cols, sortHandler, sortDirection}: ColsPropType) {
 				'& th': {
 					fontWeight: 'bold',
 					fontSize: '0.9rem',
-					background: 'rgba(255, 255, 255, 0.3)',
+					// Background: 'rgba(255, 255, 255, 0.3)',
 					color: '#272833',
 				},
 			}}>
