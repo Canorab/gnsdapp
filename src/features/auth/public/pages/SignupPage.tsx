@@ -14,7 +14,7 @@ function Signup() {
 
 	const walletAddress = '0x2672c5D6e73dcb98F241D95FE33CBD545Fac9CeE';
 	const walletAddress2 = '0x2672c5D6e73dcb98F241D95FE33CBD545Fac9CeA';
-	const walletAddress3 = '0xC966CCc0a40ED21bB05e22d0e1Aca4daE8fA68Ed';
+	const walletAddress3 = '0xC966CCc0a40ED21bB05e22d0e1Aca4daE8fA68Ec';
 
 	const [isConnect, setIsConnect] = useState(false);
 	const [wallet, setWallet] = useState<string | undefined>('');

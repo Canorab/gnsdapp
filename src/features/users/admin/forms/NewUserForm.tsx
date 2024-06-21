@@ -2,13 +2,22 @@
 
 import './NewuserForm.css';
 
-import {AccountBalanceWallet, Email, Lock, People, PersonOutline} from '@mui/icons-material';
+import {
+	AccountBalanceWallet,
+	Email,
+	Lock,
+	People,
+	PersonOutline,
+	Visibility,
+	VisibilityOff,
+} from '@mui/icons-material';
 import {
 	Button,
 	Checkbox,
 	FormControl,
 	FormControlLabel,
 	FormHelperText,
+	IconButton,
 	InputAdornment,
 	TextField,
 } from '@mui/material';
@@ -243,7 +252,7 @@ function NewUserForm({wallet, referrerUsername}: ReferralSchemaType) {
 									id='password'
 									label='Password'
 									variant='filled'
-									type='password'
+									type={showPassword ? 'text' : 'password'}
 									error={Boolean(errors.password)}
 									helperText={errors.password?.message}
 									autoComplete='off'
@@ -253,6 +262,16 @@ function NewUserForm({wallet, referrerUsername}: ReferralSchemaType) {
 										startAdornment: (
 											<InputAdornment position='start'>
 												<Lock />
+											</InputAdornment>
+										),
+										endAdornment: (
+											<InputAdornment position='end'>
+												<IconButton
+													aria-label='toggle password visibility'
+													onClick={handleClickShowPassword}
+													edge='end'>
+													{showPassword ? <VisibilityOff /> : <Visibility />}
+												</IconButton>
 											</InputAdornment>
 										),
 									}}

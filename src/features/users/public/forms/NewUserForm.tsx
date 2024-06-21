@@ -1,20 +1,21 @@
-/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import './NewuserForm.css';
 
-import {Email, PersonOutline} from '@mui/icons-material';
+import {Email, PersonOutline, Visibility, VisibilityOff} from '@mui/icons-material';
 import {
 	Button,
 	Checkbox,
 	FormControl,
 	FormControlLabel,
 	FormHelperText,
+	IconButton,
 	InputAdornment,
 	TextField,
 } from '@mui/material';
 import {Controller, useForm} from 'react-hook-form';
 import {ThemeProvider} from '@mui/material';
 import Box from '@mui/material/Box';
-import {useCallback, useEffect} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {type SignupSchemaType, signupSchema, type ReferralSchemaType} from '@/utils/schema';
 // Import {schema} from '@/utils/schema';
 import {zodResolver} from '@hookform/resolvers/zod';
@@ -38,15 +39,22 @@ function NewUserForm({wallet, referrerUsername}: ReferralSchemaType) {
 	const navigate = useNavigate();
 	const [addNewUser, {isSuccess}] = useAddNewUserMutation();
 
+	const [showPassword, setShowPassword] = useState(false);
+	const handleClickShowPassword = () => {
+		setShowPassword((show) => !show);
+	};
+
 	useEffect(() => {
 		if (isSuccess) {
-			navigate('/dash/users');
+			// Navigate('/dash/users');
+			navigate('/success');
 		}
 	}, [isSuccess, navigate]);
 
 	const {
 		handleSubmit,
 		control,
+		setError,
 		formState: {errors},
 	} = useForm({
 		resolver: zodResolver(signupSchema),
@@ -77,17 +85,76 @@ function NewUserForm({wallet, referrerUsername}: ReferralSchemaType) {
 			referrerUsername,
 			terms: false,
 		},
+		resetOptions: {
+			keepDirty: true,
+			keepErrors: true,
+			// KeepValues: true,
+		},
 	});
 
 	const onSubmit = useCallback(async (data: SignupSchemaType) => {
 		// Console.log(wallet);
-		const requestBody = {...data, wallet, referrerUsername}; // Domains
+		// const requestBody = {...data, wallet, referrerUsername}; // Domains
 		// Dispatch the useAddNewUserMutation RTK action here passing it the form data
 		// This should make a POST request to the /users endpoint which will trigger the creation of a new
 		// Mongodb doc in the backend.
 
 		// alert(JSON.stringify(requestBody, null, 4));
-		await addNewUser(requestBody);
+		// await addNewUser(requestBody);
+
+		try {
+			// Const requestBody = {...data};
+			const requestBody = {...data, wallet, referrerUsername};
+			// Alert(JSON.stringify(requestBody, null, 4));
+			const response = await addNewUser(requestBody);
+			// Console.log(response);
+			// Const error = response as typeOf response.error
+
+			// if ( 'status' in error && response?.error?.status === 409) {
+			// 	setError('username', {
+			// 		type: 'server',
+			// 		message: 'Username taken, try another one !',
+			// 		// Message: error?.data?.message,
+			// 	});
+			// }
+
+			// Prevent attempt to register with existing username
+			// @ts-expect-error
+			if (response?.error?.status === 409) {
+				setError('username', {
+					type: 'server',
+					message: 'Username taken, try another one !',
+					// Message: error?.data?.message,
+				});
+			}
+
+			// Catch Invalid or manipulated referrerUsername Errors
+			// @ts-expect-error
+			if (response?.error?.status === 401) {
+				setError('referrerUsername', {
+					type: 'server',
+					message: 'Invalid affiliate username.',
+					// Message: error?.data?.message,
+				});
+			}
+
+			// Catch other errors  emanating from the backend
+			// @ts-expect-error
+			if (response?.error?.status === 'FETCH_ERROR') {
+				setError('root.serverError', {
+					type: 'server',
+					message: 'Rejected by server. Thread with caution!',
+				});
+			}
+		} catch (error) {
+			// @ts-expect-error
+			if (error?.status === 'FETCH_ERROR') {
+				setError('root.serverError', {
+					type: 'server',
+					message: 'Network or internet Error',
+				});
+			}
+		}
 	}, []);
 
 	return (
@@ -192,7 +259,7 @@ function NewUserForm({wallet, referrerUsername}: ReferralSchemaType) {
 									id='password'
 									label='Password'
 									variant='filled'
-									type='password'
+									type={showPassword ? 'text' : 'password'}
 									error={Boolean(errors.password)}
 									helperText={errors.password?.message}
 									autoComplete='off'
@@ -201,8 +268,17 @@ function NewUserForm({wallet, referrerUsername}: ReferralSchemaType) {
 									InputProps={{
 										startAdornment: (
 											<InputAdornment position='start'>
-												{/* <AccountCircle /> */}
 												<PersonOutline />
+											</InputAdornment>
+										),
+										endAdornment: (
+											<InputAdornment position='end'>
+												<IconButton
+													aria-label='toggle password visibility'
+													onClick={handleClickShowPassword}
+													edge='end'>
+													{showPassword ? <VisibilityOff /> : <Visibility />}
+												</IconButton>
 											</InputAdornment>
 										),
 									}}
