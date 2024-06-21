@@ -20,9 +20,7 @@ function Avatar({
 				display: 'flex',
 				justifyContent: 'center',
 				alignItems: 'center',
-				// Position: 'relative',
-				// background: 'black',
-				// background: '#141441',
+
 				background,
 				borderRadius,
 				width,

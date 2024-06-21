@@ -3,14 +3,15 @@ import React, {type ReactNode} from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import {makeDate, printDate, sortRows} from '@/utils/helpers';
-import {type UserCellType, type ColsPropType, type TableData} from '@/types/propTypes';
+import {
+	type UserCellType,
+	type ColsPropType,
+	type TableData,
+	TableCellPropsType,
+} from '@/types/propTypes';
 
 // Function RenderCellData({data: row, index, fields}: Pick<TableData, 'data' | 'index' | 'fields'>) {
-function RenderCellData({
-	data,
-	cols,
-	index,
-}: UserCellType & Pick<TableData, 'index'> & Pick<ColsPropType, 'cols'>) {
+function RenderCellData<K, T>({index, cols, data}: TableCellPropsType<K, T>) {
 	// Const createdDate = makeDate(data.createdAt);
 	const createdDate = printDate(data.createdAt);
 	// Console.log(new Date(data.createdAt));
@@ -20,7 +21,7 @@ function RenderCellData({
 	// Const rowKeys = Object.keys(data);
 	const rowKeys = Object.keys(dataWithindex);
 	// Console.log(rowKeys);
-	const fields = cols.map((item) => item.accessorkey);
+	const fields = cols.map((item) => item.accessorKey);
 
 	const sortedRowKeys = sortRows(fields, rowKeys);
 	// Console.log(sortedRowKeys);
@@ -36,11 +37,7 @@ function RenderCellData({
 						? 'highlightedcell'
 						: ''
 				}>
-				{/* {data[key]} */}
-				{
-					// @ts-ignore
-					dataWithindex[key]
-				}
+				{dataWithindex[key as keyof typeof dataWithindex] as string}
 			</TableCell>,
 		);
 		return key;

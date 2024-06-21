@@ -1,4 +1,5 @@
 import {
+	type TableContentPropsType,
 	type ColsPropType,
 	type TableData,
 	type UserRowType,
@@ -10,7 +11,7 @@ import TableRow from '@mui/material/TableRow';
 import React from 'react';
 import RenderCellData from './RenderCellData';
 
-function TableContent({data, cols, page, rowsPerPage}: TableData & Pick<ColsPropType, 'cols'>) {
+function TableContent<K, T>({cols, data, page, rowsPerPage}: TableContentPropsType<K, T>) {
 	// Avoid a layout jump when reaching the last page with empty rows.
 	const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 	// Console.log(data);
@@ -27,8 +28,6 @@ function TableContent({data, cols, page, rowsPerPage}: TableData & Pick<ColsProp
 				? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 				: data
 			).map((row, index) => (
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				// @ts-expect-error
 				<RenderCellData key={row.id} data={row} cols={cols} index={index + 1} />
 			))}
 			{emptyRows > 0 && (

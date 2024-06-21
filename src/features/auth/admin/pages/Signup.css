@@ -1,21 +1,17 @@
 .signup-page {
 	background-color: rgb(29, 161, 242, 0.2);
-	/* background-color: rgba(205, 205, 205, 0.2); */
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	width: 100vw;
 	height: 100vh;
-	/* height: auto; */
 }
 .form-wrapper {
 	display: flex;
 	flex-direction: column;
 	justify-items: center;
-	/* align-items: center; */
 	align-items: center;
 	padding-top: 0;
-	/* width: 400px; */
 }
 
 .connect-box {
@@ -25,10 +21,6 @@
 }
 
 @media only screen and (max-width: 550px) {
-	/* .signup-page {
-		height: auto;
-	} */
-
 	.form-wrapper {
 		padding-top: 2rem;
 	}

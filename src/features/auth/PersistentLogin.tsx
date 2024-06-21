@@ -1,34 +1,13 @@
-/* eslint-disable no-return-assign */
 import {Link, Outlet} from 'react-router-dom';
-import React, {type ReactNode, useEffect, useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 
-/*
- * @Author: Joshua Eigbe jeigbe@gmail.com
- * @Github: https://github.com/jsh007
- * @Date: 2024-03-26 17:14:07
- * @LastEditors: Joshua Eigbe jeigbe@gmail.com
- * @LastEditTime: 2024-03-26 17:14:15
- * @FilePath: /gns_dapp/src/features/auth/PersistentLogin.tsx
- * @copyrightText: Copyright (c) Joshua Eigbe. All Rights Reserved.
- * @Description: See Github repo
- */
-import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import {type DataType} from '@/types/propTypes';
+import LinearProgress from '@mui/material/LinearProgress';
 import {selectCurrentToken} from './authSlice';
 import usePersist from '@/hooks/usePersist';
 import {useRefreshMutation} from './authApiSlice';
 import {useSelector} from 'react-redux';
-import {type FetchBaseQueryError} from '@reduxjs/toolkit/dist/query/fetchBaseQuery';
-import {type SerializedError} from '@reduxjs/toolkit';
-import Box from '@mui/material/Box';
-import LinearProgress from '@mui/material/LinearProgress';
-import {type DataType} from '@/types/propTypes';
-
-// Ths component page is responsible for the DarkBg loading page that suddenly appears for a while
-// when loading content.
-
-// export type ErrorType = {
-// 	error: FetchBaseQueryError | SerializedError | DataType;
-// };
 
 function PersistentLogin() {
 	const [persist] = usePersist('true', 'persit');
@@ -39,19 +18,15 @@ function PersistentLogin() {
 
 	const [refresh, {isUninitialized, isLoading, isSuccess, isError, error}] = useRefreshMutation();
 
+	// || process.env.NODE_ENV === 'production'
 	useEffect(() => {
-		// || process.env.NODE_ENV !== 'production'
 		if (effectRan.current || process.env.NODE_ENV === 'production') {
 			const verifyRefreshToken = async () => {
-				// Console.log('...verifying Refresh Token');
 				try {
-					// Const response =
 					await refresh();
-					// Const {accessToken} = response.data;
+
 					setTrueSuccess(true);
-				} catch (error) {
-					// Console.log(error);
-				}
+				} catch (error) {}
 			};
 
 			if (!token && persist)
@@ -62,32 +37,17 @@ function PersistentLogin() {
 					.catch((error) => {
 						console.log(error);
 					});
-			// Const callRefresh = async () => {
-			// 	if (!token && persist) await verifyRefreshToken();
-			// };
-
-			// callRefresh();
 		}
 
 		return () => {
-			const cleanUp = () => (effectRan.current = true);
-			cleanUp();
+			effectRan.current = true;
 		};
-		// Return function () {
-		// 	const ran = (effectRan.current = true);
-		// 	return ran;
-		// };
 	}, []);
 
-	// Let content: ReactNode;
 	let content;
 	if (!persist) {
-		// Persist: no
-		// console.log('No persist');
 		content = <Outlet />;
 	} else if (isLoading) {
-		// Persist: yes, token: no
-		// console.log('Loading');
 		content = (
 			<div
 				className='loading-state'
@@ -104,29 +64,34 @@ function PersistentLogin() {
 				</Box>
 			</div>
 		);
-	} else if (isError) {
-		// Persist: yes, token: no
-		// Put this Error message CTA conten
-		// console.log(error);
-		content = (
-			<div className='err-cta'>
-				<p className='errmsg'>
-					{`${(error as DataType)?.data?.message} - `}
-					<Link style={{fontWeight: 'bold'}} to='/'>
-						Please login again
-					</Link>
-				</p>
-			</div>
-		);
+	} else if (isError && 'status' in error) {
+		// Const errMsg = 'error' in error ? error.error : JSON.stringify(error.data);
+		const errMsg = 'error' in error ? error.error : (error.data as DataType['data']).message;
+		if (error.status === 'FETCH_ERROR') {
+			content = (
+				<div className='err-cta' style={{fontWeight: 'bold'}}>
+					<div className='errmsg'>
+						{/* <h3>{`${errMsg} - `}</h3> */}
+						<p>Our Servers are down at the moment. Check back later.</p>
+					</div>
+				</div>
+			);
+		} else {
+			content = (
+				<div className='err-cta' style={{fontWeight: 'bold'}}>
+					<div className='errmsg'>
+						<h3>{`${errMsg} `}</h3>
+
+						<Link style={{fontWeight: 'bold'}} to='/'>
+							Please login again
+						</Link>
+					</div>
+				</div>
+			);
+		}
 	} else if (isSuccess && trueSucess) {
-		// Persist: yes, token: yes
-		// console.log('Success!');
 		content = <Outlet />;
 	} else if (token && isUninitialized) {
-		// Persist: yes, token: yes
-		// console.log('token and uninit !');
-		// console.log(isUninitialized);
-		// Console.log(roles);
 		content = <Outlet />;
 	}
 

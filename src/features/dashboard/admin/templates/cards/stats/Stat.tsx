@@ -3,21 +3,6 @@
 import './Stat.css';
 import 'boxicons';
 
-import {Icon, SvgIcon} from '@mui/material';
-import React, {type ReactElement, type ReactSVGElement} from 'react';
-
-import {PeopleAlt} from '@mui/icons-material';
-
-/*
-Get these from props:
-{
-  id: Number,
-  label: String
-  value: Number
-  icon: String (Icon label name) - you can include this field in the DB
-}
-*/
-
 type StatProps = {
 	data: {
 		id: number;
@@ -25,8 +10,6 @@ type StatProps = {
 		value: number;
 		icon: string;
 	};
-	// Icon: ReactSVGElement;
-	// icon: ReactElement<any, any>;
 };
 
 function Stat({data}: StatProps) {
@@ -37,7 +20,6 @@ function Stat({data}: StatProps) {
 				<h2 className='font-bold text-2xl text-gray-50'> {data.value} </h2>
 			</div>
 			<div className='icon-block'>
-				{/* <PeopleAlt className='card-icon' style={{fontSize: 60}} /> */}
 				{
 					<box-icon
 						size='lg'
@@ -45,10 +27,7 @@ function Stat({data}: StatProps) {
 						name={data.icon}
 						color='rgba(206, 206, 208, 0.5)'></box-icon>
 				}
-				{/* {<i className={`bx ${data.icon}`}></i>} */}
 			</div>
-			{/* <SvgIcon name='PeopleAlt' /> */}
-			{/* <Icon>PeopleAlt</Icon> */}
 		</div>
 	);
 }

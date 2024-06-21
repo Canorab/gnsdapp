@@ -1,35 +1,25 @@
 import './SidebarLayout.css';
 
 import {Diamond, Logout, Redeem} from '@mui/icons-material';
-import {Globe, Home, NotebookPen, Settings, Users} from 'lucide-react';
-import React, {useContext} from 'react';
-import {useLocation, useNavigate, useParams} from 'react-router-dom';
+import {Home, Users} from 'lucide-react';
+import {useLocation, useNavigate} from 'react-router-dom';
 
 import Sidebar from './Sidebar';
-import {SidebarContext} from '@/components/public/layout/sidebar/Sidebar';
 import {SidebarLink} from './SidebarLink';
 import {useSendLogoutMutation} from '@/features/auth/authApiSlice';
 
 function SidebarLayout() {
-	// Const activePath = useParams();
-	// console.log(activePath);
-	// const {menuOpen} = useContext(SidebarContext)!;
 	const navigate = useNavigate();
 	const [sendLogout] = useSendLogoutMutation();
 	const handleLogout = async () => {
 		const result = await sendLogout(null);
-		// Console.log(result);
-
-		navigate('/admin');
+		navigate('/');
 	};
 
 	const currentPath = useLocation();
-	// Console.log(currentPath);
 
 	return (
 		<div className='sidebar'>
-			{/* <SidebarHeader /> */}
-			{/* <SidebarNavs /> */}
 			<Sidebar>
 				<SidebarLink
 					icon={<Home />}
@@ -61,18 +51,6 @@ function SidebarLayout() {
 					onClick={handleLogout}>
 					<Logout fontSize='medium' /> <span>Logout</span>
 				</li>
-				{/* <SidebarLink
-					icon={<Settings />}
-					label='Settings'
-					active={currentPath.pathname === '/dash/users/settings'}
-					link='/dash/users/settings'
-				/> */}
-				{/* <SidebarLink
-					icon={<Settings />}
-					label='Settings'
-					active={currentPath.pathname === '/dash/users/settings'}
-					link='/dash/users/settings'
-				/> */}
 			</Sidebar>
 		</div>
 	);

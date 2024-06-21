@@ -5,7 +5,6 @@
 
 	color-scheme: light dark;
 	color: rgba(255, 255, 255, 0.87);
-	/* background-color: #242424; */
 	background: url('/images/spacebg.png');
 	background-size: cover;
 	font-synthesis: none;
@@ -14,12 +13,7 @@
 	-moz-osx-font-smoothing: grayscale;
 	height: 100vh;
 }
-/* div#root {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-} */
+
 a {
 	font-weight: 500;
 	/* color: #646cff; */
@@ -37,7 +31,6 @@ a:hover {
 body {
 	margin: 0;
 	display: flex;
-	/* justify-content: center; */
 	place-items: center;
 	min-width: 320px;
 	min-height: 100vh;
@@ -93,9 +86,7 @@ button:focus-visible {
 }
 
 /* Custom styles */
-/* .css-1wc848c-MuiFormHelperText-root.Mui-error {
-	color: #ffa7a7 !important;
-} */
+
 p.MuiFormHelperText-root.Mui-error {
 	/* color: azure; */
 	color: #ffa7a7 !important;

@@ -76,7 +76,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 			},
 		}),
 		// Move this mutaton to the authApiSlice as soon as it is ready.
-		// the whole of the apiSlice should be locked down and inaccessible to the public
+		// the whole of the usersApiSlice should be locked down and inaccessible to the public
 		// New users should be added via the auth/signup endpoint
 		addNewUser: builder.mutation<UserType, Partial<UserType>>({
 			query: (newUser) => ({

@@ -8,13 +8,10 @@ import {v4 as uuid} from 'uuid';
 export const dashboardAdapter = createEntityAdapter<StatType>({});
 
 export const initialState = dashboardAdapter.getInitialState();
-// Export type UserType = {
 
-// }
 export const dashboardApSlice = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
 		getAdminStats: builder.query<EntityState<StatType, string>, string | void>({
-			// Query: () => 'users'
 			query: () => ({
 				url: 'stats/admin',
 				validateStatus: (response, result) => response.status === 200 && !result.isError,
@@ -33,7 +30,6 @@ export const dashboardApSlice = apiSlice.injectEndpoints({
 			},
 		}),
 		getUserStats: builder.query<EntityState<StatType, string>, string>({
-			// Query: () => 'users'
 			query: (username) => ({
 				url: `stats/${username}`,
 				validateStatus: (response, result) => response.status === 200 && !result.isError,
@@ -71,18 +67,3 @@ export const statsSelectors = dashboardAdapter.getSelectors(
 );
 
 export default dashboardApSlice;
-
-/**
- * You can define and inject any api endpoints into the root apiSlice
- * in this case defined the followiing
- * getUsers - Query endpoint, url: /users
- * getDomains - Query endpoint, url: /domains
- * After all, this feature is meant to only fetch and render data and has no mutation responsibility
- */
-
-/*
-Should have the getAggregateDataQuery api endpoint which calls the mongodb aggregate data url endpoint; /aggregate
-of our mongodb instance.
-Therefore, the rtkquery action mentioned above should be responsble for fetching and synching data from our mongodb
-aggregate uri endpoint and persisting to state.
-*/

@@ -1,4 +1,10 @@
-import {type UserType, type TableData, type ColsPropType, type DomainType} from '@/types/propTypes';
+import {
+	type UserType,
+	type TableData,
+	type ColsPropType,
+	type DomainType,
+	type TablePropsType,
+} from '@/types/propTypes';
 import Paper from '@mui/material/Paper';
 import TableContainer from '@mui/material/TableContainer';
 
@@ -17,7 +23,7 @@ the <UserThead/> and the <UserRow/> components inside this component.
 You may alsoi include a CTA heading with Section title and s view All> btn to the extreme right.
 */
 
-function BaseTable({cols, data}: Pick<ColsPropType, 'cols'> & Pick<TableData, 'data'>) {
+function BaseTable<K, T>({cols, data}: TablePropsType<K, T>) {
 	/* Navigation & Pagination */
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -39,7 +45,7 @@ function BaseTable({cols, data}: Pick<ColsPropType, 'cols'> & Pick<TableData, 'd
 		setRowData(data);
 	}, [data]);
 
-	const sortArray = (arr: UserType[] | DomainType[], orderBy: 'desc' | 'asc' | undefined) => {
+	const sortArray = (arr: typeof data, orderBy: 'desc' | 'asc' | undefined) => {
 		switch (orderBy) {
 			case 'desc':
 				return arr.sort((a, b) => (makeDate(a.createdAt) < makeDate(b.createdAt) ? -1 : 1));
@@ -84,6 +90,7 @@ function BaseTable({cols, data}: Pick<ColsPropType, 'cols'> & Pick<TableData, 'd
 				onPageChange={handleChangePage}
 				onRowsPerPageChange={handleChangeRowsPerPage}
 				ActionsComponent={TablePaginationActions}
+				sx={{color: '#ffff'}}
 			/>
 		</Paper>
 	);

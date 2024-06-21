@@ -1,13 +1,11 @@
-/* eslint-disable react/react-in-jsx-scope */
-// prettier-ignore
 import './SidebarNavs.css';
 import './Sidebar.css';
-import {ChevronFirst, ChevronLast, Menu, MoreVertical, X} from 'lucide-react';
-import {createContext, useContext, useEffect, useState} from 'react';
+import {ChevronFirst, ChevronLast, Menu, X} from 'lucide-react';
+import {createContext, useState} from 'react';
 
 import {type SidebarProps} from '@/types/propTypes';
 import {type SidebarContextType} from '@/types/stateTypes';
-import {Logout, MenuOpen} from '@mui/icons-material';
+import {Logout} from '@mui/icons-material';
 import {useSendLogoutMutation} from '@/features/auth/authApiSlice';
 import {useNavigate} from 'react-router-dom';
 import useAuth from '@/hooks/useAuth';
@@ -20,16 +18,10 @@ export default function Sidebar({children}: SidebarProps) {
 	const [expanded, setExpanded] = useState(true);
 	const [sendLogout] = useSendLogoutMutation();
 	const navigate = useNavigate();
-	// Mobile menu
+
 	const [menuOpen, setMenuOpen] = useState(false);
 
 	const userInitals = username?.substring(0, 2).toLocaleUpperCase();
-
-	// UseEffect(() => {
-	// 	if (isSuccess) {
-	// 		navigate('/');
-	// 	}
-	// }, [navigate, isSuccess]);
 
 	return (
 		<aside className='h-screen'>
@@ -52,7 +44,6 @@ export default function Sidebar({children}: SidebarProps) {
 					{/* Mobile menu Icon */}
 					<button
 						onClick={() => {
-							// SetExpanded((curr) => !curr);
 							setMenuOpen(!menuOpen);
 						}}
 						className='lg:hidden md:hidden p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100'>
@@ -91,9 +82,7 @@ export default function Sidebar({children}: SidebarProps) {
 						<Logout
 							className='text-gray-200 cursor-pointer'
 							onClick={async (e) => {
-								// Alert('Logged out !');
 								const result = await sendLogout(null);
-								// Console.log(result);
 
 								navigate('/admin');
 							}}

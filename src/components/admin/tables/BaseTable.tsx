@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import {type UserType, type TableData, type ColsPropType, type DomainType} from '@/types/propTypes';
+import {
+	type UserType,
+	type TableData,
+	type ColsPropType,
+	type DomainType,
+	type TablePropsType,
+} from '@/types/propTypes';
 import Paper from '@mui/material/Paper';
 import TableContainer from '@mui/material/TableContainer';
 
@@ -18,7 +24,7 @@ the <UserThead/> and the <UserRow/> components inside this component.
 You may alsoi include a CTA heading with Section title and s view All> btn to the extreme right.
 */
 
-function BaseTable({cols, data}: Pick<ColsPropType, 'cols'> & Pick<TableData, 'data'>) {
+function BaseTable<K, T>({cols, data}: TablePropsType<K, T>) {
 	/* Navigation & Pagination */
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -40,7 +46,7 @@ function BaseTable({cols, data}: Pick<ColsPropType, 'cols'> & Pick<TableData, 'd
 		setRowData(data);
 	}, [data]);
 
-	const sortArray = (arr: UserType[] | DomainType[], orderBy: 'desc' | 'asc' | undefined) => {
+	const sortArray = (arr: typeof data, orderBy: 'desc' | 'asc' | undefined) => {
 		switch (orderBy) {
 			case 'desc':
 				return arr.sort((a, b) => (makeDate(a.createdAt) < makeDate(b.createdAt) ? -1 : 1));
@@ -55,14 +61,6 @@ function BaseTable({cols, data}: Pick<ColsPropType, 'cols'> & Pick<TableData, 'd
 		setOrderDirection(orderDirection === 'asc' ? 'desc' : 'asc');
 		// Console.log(orderDirection);
 	};
-
-	// .css-5ff19z-MuiTableHead-root th {
-	// 	font-weight: 700;
-	// 	font-size: 0.9rem;
-	// 	/* background: #e6e6e6; */
-	// 	color: #272833;
-	// 	background: rgba(255, 255, 255, 0.3);
-	// }
 
 	return (
 		// Component={Paper}
@@ -97,6 +95,7 @@ function BaseTable({cols, data}: Pick<ColsPropType, 'cols'> & Pick<TableData, 'd
 					},
 				}}
 				// @ts-expect-error
+				// Research how to infer types in npm packages or react event arguments.
 				onPageChange={handleChangePage}
 				onRowsPerPageChange={handleChangeRowsPerPage}
 				ActionsComponent={TablePaginationActions}

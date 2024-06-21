@@ -50,25 +50,6 @@ export type AvatarProps = {
 	background?: string;
 };
 
-// Table
-// export type TableProps = PropsWithChildren & {
-// 	width?: number;
-// 	// Children: ReactNode;
-// };
-
-// Export type UserRowType = {
-// 	user: {
-// 		id: number;
-// 		username: string;
-// 		first_name: string;
-// 		last_name: string;
-// 		email: string;
-// 		wallet: string;
-// 		referrer_id: Record<string, unknown>;
-// 		referrer_username: string;
-// 		timestamp: string;
-// 	};
-// };
 export type UserRowType = {
 	key?: number;
 	user: {
@@ -99,35 +80,7 @@ export type UsersData = PropsWithChildren & {
 	}>;
 };
 
-//    For (let index = 0; index < fields.length; index++) {
-//         const fieldName = fields[index];
-
-//         cols.push(
-// 			<TableCell key={row.id} align='right'>
-// 				{row[fieldName]}
-// 			</TableCell>
-// 		);
-//     }
-
-// Export type UsersData = PropsWithChildren & {
-// 	[]: UserRowType[];
-// };
-
-// export type ColsType = {
-// 	cols: {
-// 		id: string;
-// 		username: string;
-// 		firstName: string;
-// 		lastName: string;
-// 		email: string;
-// 		domains: string;
-// 		wallet: string;
-// 		referrerId: string;
-// 		referrerUsername: string;
-// 		timestamp: string;
-// 	};
-// };
-export type ColType = {header: string; accessorkey: string; footer: string};
+export type ColType = {header: string; accessorKey: string; footer: string};
 export type UserType = {
 	id: string;
 	_id: string;
@@ -142,7 +95,6 @@ export type UserType = {
 	createdAt: string;
 	updatedAt: string;
 	active: boolean;
-	// Timestamp: string;
 };
 
 export type UserCellType = {
@@ -160,7 +112,6 @@ export type UserCellType = {
 		createdAt: string;
 		updatedAt: string;
 		active: boolean;
-		// Timestamp: string;
 	};
 };
 
@@ -210,8 +161,7 @@ export type ColsPropType = PropsWithChildren & {
 };
 export type TableData = PropsWithChildren & {
 	data: UserType[] | DomainType[];
-	// DomainData: DomainType;
-	// userData: UserType;
+
 	fields?: string[];
 	page: number;
 	rowsPerPage: number;
@@ -225,9 +175,34 @@ export type TablePaginationActionsProps = {
 	onPageChange: (event: React.MouseEvent<HTMLButtonElement>, newPage: number) => void;
 };
 
-// Export type TableData = PropsWithChildren & UserType[] & ColType[]
-// & {page?: number;
-// 	rowsPerPage?: number;}
+// GENERICS
 
-// Export type TableData = PropsWithChildren & UsersData & ColsType;
-// export type TableData = PropsWithChildren & UsersData & ColType[];
+export type TablePropsType<K, T = void> = {
+	// Data: T[];
+	cols: Array<K & {accessorKey: string; header: string}>;
+	data: Array<T & {id: string; createdAt: string}>;
+};
+
+export type TableHeaderPropsType<K> = {
+	// Cols: K[];
+	sortHandler: () => void;
+	sortDirection: 'desc' | 'asc' | undefined;
+} & Pick<TablePropsType<K>, 'cols'>;
+
+export type TableContentPropsType<K, T> = {
+	// Cols: K[];
+	// fields?: string[];
+	page: number;
+	rowsPerPage: number;
+	// Index?: number;
+} & TablePropsType<K, T>;
+
+export type TableCellPropsType<K, T> = {
+	index: number;
+	data: T & {id: string; createdAt: string};
+} & Pick<TablePropsType<K>, 'cols'>;
+
+export type SortRowsType<K, T> = {
+	fields: K[];
+	rows: T[];
+};

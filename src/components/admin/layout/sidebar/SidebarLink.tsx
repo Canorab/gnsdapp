@@ -1,15 +1,12 @@
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
-
 import './SidebarNavs.css';
 
-import React, {useContext} from 'react';
+import {useContext} from 'react';
 
 import {SidebarContext} from './Sidebar';
 import {type SidebarLinkProps} from '@/types/propTypes';
-import {SidebarContextType} from '@/types/stateTypes';
 import {Link} from 'react-router-dom';
-import {Table} from '@mui/material';
 
 export function SidebarLink({icon, label, active, alert, link}: SidebarLinkProps) {
 	const {expanded} = useContext(SidebarContext)!;

@@ -2,7 +2,7 @@ import {type DomainType} from './../../types/propTypes';
 import {type EntityState, createEntityAdapter, createSelector} from '@reduxjs/toolkit';
 
 import {apiSlice} from '../../app/api/apiSlice';
-import {type UserType} from '@/types/propTypes';
+
 import {type RootState} from '@/app/store';
 
 export const domainsAdapter = createEntityAdapter<DomainType>({});
@@ -12,7 +12,6 @@ export const initialState = domainsAdapter.getInitialState();
 export const domainsApiSlice = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
 		getDomains: builder.query<EntityState<DomainType, string>, string | void>({
-			// Query: () => 'users'
 			query: () => ({
 				url: 'domains',
 				validateStatus: (response, result) => response.status === 200 && !result.isError,
@@ -33,7 +32,6 @@ export const domainsApiSlice = apiSlice.injectEndpoints({
 				}
 
 				return [{type: 'Domain', id: 'LIST'}];
-				// Return result ? result.map(({id}) => ({type: 'Posts', id})) : [];
 			},
 			forceRefetch({currentArg, previousArg}) {
 				return currentArg !== previousArg;
@@ -41,7 +39,6 @@ export const domainsApiSlice = apiSlice.injectEndpoints({
 		}),
 
 		getUserDomains: builder.query<EntityState<DomainType, string>, string>({
-			// Query: () => 'users'
 			query: (username) => ({
 				url: `domains/${username}`,
 				validateStatus: (response, result) => response.status === 200 && !result.isError,
@@ -62,14 +59,12 @@ export const domainsApiSlice = apiSlice.injectEndpoints({
 				}
 
 				return [{type: 'Domain', id: 'LIST'}];
-				// Return result ? result.map(({id}) => ({type: 'Posts', id})) : [];
 			},
 			forceRefetch({currentArg, previousArg}) {
 				return currentArg !== previousArg;
 			},
 		}),
 		getUserReferralsDomains: builder.query<EntityState<DomainType, string>, string>({
-			// Query: () => 'users'
 			query: (username) => ({
 				url: `users/referrals/domains/${username}`,
 				validateStatus: (response, result) => response.status === 200 && !result.isError,
@@ -90,7 +85,6 @@ export const domainsApiSlice = apiSlice.injectEndpoints({
 				}
 
 				return [{type: 'Domain', id: 'LIST'}];
-				// Return result ? result.map(({id}) => ({type: 'Posts', id})) : [];
 			},
 			forceRefetch({currentArg, previousArg}) {
 				return currentArg !== previousArg;

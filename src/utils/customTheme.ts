@@ -45,9 +45,6 @@ export const customTheme = (outerTheme: Theme) =>
 						[`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
 							borderColor: grey[200],
 						},
-						// '& label.Mui-focused': {
-						// 	color: grey[100],
-						// },
 					},
 				},
 			},
@@ -59,11 +56,9 @@ export const customTheme = (outerTheme: Theme) =>
 						},
 						'&:hover:not(.Mui-disabled, .Mui-error):before': {
 							borderBottom: '2px solid var(--TextField-brandBorderHoverColor)',
-							// BorderBottom: '2px solid brown',
 						},
 						'&.Mui-focused:after': {
 							borderBottom: '2px solid var(--TextField-brandBorderFocusedColor)',
-							// BorderBottom: '2px solid green',
 						},
 						'&.MuiFilledInput-root': {
 							background: '#fff',
@@ -71,20 +66,5 @@ export const customTheme = (outerTheme: Theme) =>
 					},
 				},
 			},
-			// MuiInput: {
-			// 	styleOverrides: {
-			// 		root: {
-			// 			'&::before': {
-			// 				borderBottom: '2px solid var(--TextField-brandBorderColor)',
-			// 			},
-			// 			'&:hover:not(.Mui-disabled, .Mui-error):before': {
-			// 				borderBottom: '2px solid var(--TextField-brandBorderHoverColor)',
-			// 			},
-			// 			'&.Mui-focused:after': {
-			// 				borderBottom: '2px solid var(--TextField-brandBorderFocusedColor)',
-			// 			},
-			// 		},
-			// 	},
-			// },
 		},
 	});

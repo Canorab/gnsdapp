@@ -1,19 +1,12 @@
-import {
-	type ColsPropType,
-	type TableData,
-	type UserRowType,
-	type UsersData,
-} from '@/types/propTypes';
+import {type TableContentPropsType} from '@/types/propTypes';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import React from 'react';
 import RenderCellData from './RenderCellData';
 
-function TableContent({data, cols, page, rowsPerPage}: TableData & Pick<ColsPropType, 'cols'>) {
-	// Avoid a layout jump when reaching the last page with empty rows.
+function TableContent<K, T>({cols, data, page, rowsPerPage}: TableContentPropsType<K, T>) {
 	const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
-	// Console.log(data);
+
 	return (
 		<TableBody>
 			{data.length === 0 && (
@@ -27,8 +20,6 @@ function TableContent({data, cols, page, rowsPerPage}: TableData & Pick<ColsProp
 				? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 				: data
 			).map((row, index) => (
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				// @ts-expect-error
 				<RenderCellData key={row.id} data={row} cols={cols} index={index + 1} />
 			))}
 			{emptyRows > 0 && (
@@ -37,12 +28,6 @@ function TableContent({data, cols, page, rowsPerPage}: TableData & Pick<ColsProp
 				</TableRow>
 			)}
 		</TableBody>
-
-		// <TableBody>
-		// 	{users.map((user) => (
-		// 		<UserRow key={user.id} user={user} />
-		// 	))}
-		// </TableBody>
 	);
 }
 

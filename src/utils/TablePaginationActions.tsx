@@ -13,7 +13,6 @@ export function TablePaginationActions({
 	onPageChange,
 }: TablePaginationActionsProps) {
 	const theme = useTheme();
-	// Const {count, page, rowsPerPage, onPageChange} = props;
 
 	const handleFirstPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		onPageChange(event, 0);

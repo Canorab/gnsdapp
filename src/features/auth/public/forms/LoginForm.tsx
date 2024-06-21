@@ -1,33 +1,21 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import {Controller, useForm} from 'react-hook-form';
-import {type LoginSchemaType, loginSchema, signupSchema} from '@/utils/schema';
+import {type LoginSchemaType, loginSchema} from '@/utils/schema';
 import React, {useCallback, useEffect} from 'react';
 
-import {
-	Box,
-	Checkbox,
-	FormControl,
-	FormControlLabel,
-	FormHelperText,
-	InputAdornment,
-} from '@mui/material';
+import {Box, InputAdornment} from '@mui/material';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import InputBase from '@mui/material/InputBase';
-import Paper from '@mui/material/Paper';
-import {AccountCircle, CheckBox, Lock, PersonOutline} from '@mui/icons-material';
+import {Lock, PersonOutline, Visibility, VisibilityOff} from '@mui/icons-material';
 import TextField from '@mui/material/TextField';
 import {zodResolver} from '@hookform/resolvers/zod';
-import {ThemeProvider, createTheme} from '@mui/material';
-import {type Theme, useTheme} from '@mui/material/styles';
+import {ThemeProvider} from '@mui/material';
+import {useTheme} from '@mui/material/styles';
 import {customTheme} from '@/utils/customTheme';
 import {useLoginMutation} from '../../authApiSlice';
 import {useNavigate} from 'react-router-dom';
 import {setCredentials} from '../../authSlice';
 import {useDispatch} from 'react-redux';
-
-// There should be different login pages and forms for regular users and admins
-// admin logn page should navgate to dash/users while regular login page shoould goto userdash/users
 
 function LoginForm() {
 	const theme = useTheme();
@@ -35,6 +23,11 @@ function LoginForm() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [login, {isLoading, isSuccess, isError, error: rtkError}] = useLoginMutation();
+
+	const [showPassword, setShowPassword] = React.useState(false);
+	const handleClickShowPassword = () => {
+		setShowPassword((show) => !show);
+	};
 
 	const {
 		register,
@@ -49,7 +42,6 @@ function LoginForm() {
 		defaultValues: {
 			username: '',
 			password: '',
-			// Terms: false,
 		},
 	});
 
@@ -60,10 +52,6 @@ function LoginForm() {
 	}, [isSuccess, navigate]);
 
 	const onSubmit = useCallback(async (data: LoginSchemaType) => {
-		// Dispatch the useAddNewUserMutation RTK action here passing it the form data
-		// This should make a POST request to the /users endpoint which will trigger the creation of a new
-		// Mongodb doc in the backend.
-
 		try {
 			const {accessToken} = await login(data).unwrap();
 
@@ -79,11 +67,6 @@ function LoginForm() {
 
 			// @ts-expect-error
 			if (error?.status === 404) {
-				// SetError('username', {
-				// 	type: 'server',
-				// 	message: 'Username taken, try another one !',
-				// 	// Message: error?.data?.message,
-				// });
 				setError('root.serverError', {
 					type: 'server',
 					message: 'Invalid Login Credentials',
@@ -109,7 +92,6 @@ function LoginForm() {
 							alignItems: 'center',
 							gap: 2,
 							width: 350,
-							// Background: '#1da1f2',
 							boxShadow: 0,
 						}}>
 						<Controller
@@ -128,7 +110,6 @@ function LoginForm() {
 									InputProps={{
 										startAdornment: (
 											<InputAdornment position='start'>
-												{/* <AccountCircle /> */}
 												<PersonOutline />
 											</InputAdornment>
 										),
@@ -145,7 +126,7 @@ function LoginForm() {
 									id='password'
 									label='Password'
 									variant='filled'
-									type='password'
+									type={showPassword ? 'text' : 'password'}
 									error={Boolean(errors.password)}
 									helperText={errors.password?.message}
 									{...field}
@@ -153,8 +134,17 @@ function LoginForm() {
 									InputProps={{
 										startAdornment: (
 											<InputAdornment position='start'>
-												{/* <AccountCircle /> */}
 												<Lock />
+											</InputAdornment>
+										),
+										endAdornment: (
+											<InputAdornment position='end'>
+												<IconButton
+													aria-label='toggle password visibility'
+													onClick={handleClickShowPassword}
+													edge='end'>
+													{showPassword ? <VisibilityOff /> : <Visibility />}
+												</IconButton>
 											</InputAdornment>
 										),
 									}}
@@ -166,9 +156,7 @@ function LoginForm() {
 							Submit
 						</Button>
 						<div>
-							<p style={{fontWeight: 'bold'}}>
-								{errors.root?.serverError?.message /* note the cross check */}
-							</p>
+							<p style={{fontWeight: 'bold'}}>{errors.root?.serverError?.message}</p>
 						</div>
 					</Box>
 				</form>

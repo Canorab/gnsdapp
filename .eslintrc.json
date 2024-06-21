@@ -20,7 +20,9 @@
 	},
 	"plugins": ["react", "prettier"], //, "@stylistic/ts"
 	"rules": {
-		"react/jsx-uses-react": "error",
+		// "react/jsx-uses-react": "error",
+		"react/jsx-uses-react": "off",
+		"react/react-in-jsx-scope": "off",
 		"react/jsx-uses-vars": "error",
 		// "react-in-jsx-scope": 0,
 		"comma-dangle": "off",

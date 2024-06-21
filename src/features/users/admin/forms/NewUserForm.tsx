@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable react/react-in-jsx-scope */
+
 import './NewuserForm.css';
 
 import {AccountBalanceWallet, Email, Lock, People, PersonOutline} from '@mui/icons-material';
@@ -15,7 +15,7 @@ import {
 import {Controller, useForm} from 'react-hook-form';
 import {ThemeProvider} from '@mui/material';
 import Box from '@mui/material/Box';
-import {useCallback, useEffect} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {type SignupSchemaType, signupSchema, type ReferralSchemaType} from '@/utils/schema';
 // Import {schema} from '@/utils/schema';
 import {zodResolver} from '@hookform/resolvers/zod';
@@ -26,23 +26,21 @@ import {customTheme} from '@/utils/customTheme';
 import {useNavigate} from 'react-router-dom';
 import {useAddNewUserMutation} from '@/features/auth/authApiSlice';
 
-/*
-Import into the Signup.tsx component page and use it to create a new user by capturing filled form fields and
-dispatching the addNewUserMutaton RTK action creator, passing the captured data as payload.
-*/
-
-// domains,
 function NewUserForm({wallet, referrerUsername}: ReferralSchemaType) {
 	const theme = useTheme();
-	// Const formTheme = createTheme({});
-	// Console.log(wallet);
-	// Form
+
 	const navigate = useNavigate();
 	const [addNewUser, {isSuccess}] = useAddNewUserMutation();
 
+	const [showPassword, setShowPassword] = useState(false);
+	const handleClickShowPassword = () => {
+		setShowPassword((show) => !show);
+	};
+
 	useEffect(() => {
 		if (isSuccess) {
-			navigate('/dash/users');
+			// Navigate('/dash/users');
+			navigate('/success');
 		}
 	}, [isSuccess, navigate]);
 
@@ -88,21 +86,22 @@ function NewUserForm({wallet, referrerUsername}: ReferralSchemaType) {
 	});
 
 	const onSubmit = useCallback(async (data: SignupSchemaType) => {
-		// Console.log(wallet);
-		// const requestBody = {...data, wallet, referrerUsername}; // Domains
-		// const requestBody = {...data}; // Domains
-		// Dispatch the useAddNewUserMutation RTK action here passing it the form data
-		// This should make a POST request to the /users endpoint which will trigger the creation of a new
-		// Mongodb doc in the backend.
-
-		// alert(JSON.stringify(requestBody, null, 4));
-		// Await addNewUser(requestBody);
 		try {
-			const requestBody = {...data}; // Domains
-			// alert(JSON.stringify(requestBody, null, 4));
+			const requestBody = {...data};
+			// Alert(JSON.stringify(requestBody, null, 4));
 			const response = await addNewUser(requestBody);
 			// Console.log(response);
-			// Catch Duplicate username Errors
+			// Const error = response as typeOf response.error
+
+			// if ( 'status' in error && response?.error?.status === 409) {
+			// 	setError('username', {
+			// 		type: 'server',
+			// 		message: 'Username taken, try another one !',
+			// 		// Message: error?.data?.message,
+			// 	});
+			// }
+
+			// Prevent attempt to register with existing username
 			// @ts-expect-error
 			if (response?.error?.status === 409) {
 				setError('username', {
@@ -121,9 +120,16 @@ function NewUserForm({wallet, referrerUsername}: ReferralSchemaType) {
 					// Message: error?.data?.message,
 				});
 			}
+
+			// Catch other errors  emanating from the backend
+			// @ts-expect-error
+			if (response?.error?.status === 'FETCH_ERROR') {
+				setError('root.serverError', {
+					type: 'server',
+					message: 'Rejected by server. Thread with caution!',
+				});
+			}
 		} catch (error) {
-			// Catch Server Errors
-			// console.log(error);
 			// @ts-expect-error
 			if (error?.status === 'FETCH_ERROR') {
 				setError('root.serverError', {

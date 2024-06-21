@@ -1,4 +1,4 @@
-import {type ColsPropType} from '@/types/propTypes';
+import {type TableHeaderPropsType, type ColsPropType} from '@/types/propTypes';
 import React, {useState} from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
@@ -11,7 +11,7 @@ so construct this table head to have the following cols head (th)
 username, firstName, LastName, domans, referrer, wallet, emailAddress
 */
 
-function TableHeader({cols, sortHandler, sortDirection}: ColsPropType) {
+function TableHeader<K>({cols, sortHandler, sortDirection}: TableHeaderPropsType<K>) {
 	return (
 		<TableHead
 			sx={{
@@ -24,9 +24,9 @@ function TableHeader({cols, sortHandler, sortDirection}: ColsPropType) {
 			}}>
 			<TableRow>
 				{cols.map((col) =>
-					col.accessorkey === 'createdDate' ? (
+					col.accessorKey === 'createdDate' ? (
 						<TableCell
-							key={col.accessorkey}
+							key={col.accessorKey}
 							onClick={() => {
 								sortHandler();
 							}}>
@@ -36,8 +36,8 @@ function TableHeader({cols, sortHandler, sortDirection}: ColsPropType) {
 						</TableCell>
 					) : (
 						<TableCell
-							key={col.accessorkey}
-							align={col.accessorkey === 'index' ? undefined : 'right'}>
+							key={col.accessorKey}
+							align={col.accessorKey === 'index' ? undefined : 'right'}>
 							{col.header}
 						</TableCell>
 					),

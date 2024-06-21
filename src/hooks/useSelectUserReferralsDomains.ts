@@ -15,7 +15,6 @@ function useSelectUserReferralsDomains(selectorId: string | typeof skipToken) {
 		return domainsAdapter.getSelectors(
 			(state: RootState) => selectAllUserReferralsDomainsData(state) ?? initialState,
 		);
-		// Return userReferralsSelector;
 	}, [selectorId]);
 }
 

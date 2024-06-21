@@ -3,42 +3,42 @@ import {type ColType} from '@/types/propTypes';
 export const usersCols: ColType[] = [
 	{
 		header: 'SN',
-		accessorkey: 'index',
+		accessorKey: 'index',
 		footer: 'SN',
 	},
 	{
 		header: 'Date',
-		accessorkey: 'createdDate',
+		accessorKey: 'createdDate',
 		footer: 'Date',
 	},
 	{
 		header: 'Username',
-		accessorkey: 'username',
+		accessorKey: 'username',
 		footer: 'Username',
 	},
 	{
 		header: 'First Name',
-		accessorkey: 'firstName',
+		accessorKey: 'firstName',
 		footer: 'First Name',
 	},
 	{
 		header: 'Last Name',
-		accessorkey: 'lastName',
+		accessorKey: 'lastName',
 		footer: 'Last Name',
 	},
 	{
 		header: 'Domains',
-		accessorkey: 'domainsCount',
+		accessorKey: 'domainsCount',
 		footer: 'Domains',
 	},
 	{
 		header: 'Wallet',
-		accessorkey: 'wallet',
+		accessorKey: 'wallet',
 		footer: 'Wallet',
 	},
 	{
 		header: 'Referrer',
-		accessorkey: 'referrerUsername',
+		accessorKey: 'referrerUsername',
 		footer: 'Referrer',
 	},
 ];
@@ -46,32 +46,32 @@ export const usersCols: ColType[] = [
 export const domainCols: ColType[] = [
 	{
 		header: 'SN',
-		accessorkey: 'index',
+		accessorKey: 'index',
 		footer: 'SN',
 	},
 	{
 		header: 'Date',
-		accessorkey: 'createdDate',
+		accessorKey: 'createdDate',
 		footer: 'Date',
 	},
 	{
 		header: 'Domain',
-		accessorkey: 'name',
+		accessorKey: 'name',
 		footer: 'Domain',
 	},
 	{
 		header: 'Username',
-		accessorkey: 'username',
+		accessorKey: 'username',
 		footer: 'Username',
 	},
 	{
 		header: 'First Name',
-		accessorkey: 'firstName',
+		accessorKey: 'firstName',
 		footer: 'First Name',
 	},
 	{
 		header: 'Last Name',
-		accessorkey: 'lastName',
+		accessorKey: 'lastName',
 		footer: 'Last Name',
 	},
 ];
@@ -79,52 +79,52 @@ export const domainCols: ColType[] = [
 export const affiliatesCols: ColType[] = [
 	{
 		header: 'SN',
-		accessorkey: 'index',
+		accessorKey: 'index',
 		footer: 'SN',
 	},
 	{
 		header: 'Date',
-		accessorkey: 'createdDate',
+		accessorKey: 'createdDate',
 		footer: 'Date',
 	},
 	{
 		header: 'Username',
-		accessorkey: 'username',
+		accessorKey: 'username',
 		footer: 'Username',
 	},
 	{
 		header: 'First Name',
-		accessorkey: 'firstName',
+		accessorKey: 'firstName',
 		footer: 'First Name',
 	},
 	{
 		header: 'Last Name',
-		accessorkey: 'lastName',
+		accessorKey: 'lastName',
 		footer: 'Last Name',
 	},
 	{
 		header: 'Wallet',
-		accessorkey: 'wallet',
+		accessorKey: 'wallet',
 		footer: 'Wallet',
 	},
 	{
 		header: 'Total Referrals',
-		accessorkey: 'totalReferralsCount',
+		accessorKey: 'totalReferralsCount',
 		footer: 'Total Referrals',
 	},
 	{
 		header: 'Today Referrals',
-		accessorkey: 'todayReferralsCount',
+		accessorKey: 'todayReferralsCount',
 		footer: 'Today Referrals',
 	},
 	{
 		header: 'Total Domains',
-		accessorkey: 'totalDomainsCount',
+		accessorKey: 'totalDomainsCount',
 		footer: 'Total Domains',
 	},
 	{
 		header: 'Today Domains',
-		accessorkey: 'todayDomainsCount',
+		accessorKey: 'todayDomainsCount',
 		footer: 'Today Domains',
 	},
 ];

@@ -14,12 +14,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import {Link} from 'react-router-dom';
 import useSelectUserReferralsDomains from '@/hooks/useSelectUserReferralsDomains';
 
-/*
-Get the wallet address of the currently logged in user's redux state and use it to query
-opensea, then update the user's domains (i.e write new docs to the user collection)
-for the user. Then update the user's domains count in the User table.
-*/
-
 function DomainsList() {
 	const [data, setData] = useState<DomainType[]>([]);
 	const [searched, setSearched] = useState<string>('');
@@ -27,7 +21,7 @@ function DomainsList() {
 	const authUser = useAuth();
 
 	// GET AUTH USER'S REFERRALS
-	// Prefect the Auth user's referrals
+	// Prefech the Auth user's referrals
 	const {isLoading, isFetching, isSuccess, isError, error} = useGetUserReferralsDomainsQuery(
 		authUser.username,
 	);
@@ -36,18 +30,6 @@ function DomainsList() {
 	const userReferralsDomainsSelector = useSelectUserReferralsDomains(authUser.username);
 
 	const allData = useSelector(userReferralsDomainsSelector.selectAll);
-	// Console.log('All Auth User Referrals', allData);
-
-	// // Prefect the Auth user's referrals
-	// const {isLoading, isFetching, isSuccess, isError, error} = useGetUserDomainsQuery(
-	// 	authUser.username,
-	// );
-
-	// // Custom Hook
-	// const userDomainsSelector = useSelectUserDomains(authUser.username);
-
-	// const allData = useSelector(userDomainsSelector.selectAll);
-	// // Console.log('All Auth User Referrals', allData);
 
 	// CONTENT VARIABLE
 	let content: ReactNode;
@@ -67,7 +49,9 @@ function DomainsList() {
 				<CircularProgress />
 			</div>
 		);
-	if (isError)
+	if (isError && 'status' in error) {
+		const errMsg = 'error' in error ? error.error : (error.data as DataType['data']).message;
+
 		content = (
 			<div
 				style={{
@@ -79,35 +63,16 @@ function DomainsList() {
 					alignItems: 'center',
 				}}>
 				<p className='errmsg'>
-					{`${(error as DataType)?.data?.message}`}
-					{/* <Link style={{fontWeight: 'bold'}} to='/'>
-						Please login again
-					</Link> */}
+					{`${errMsg}`}
+					{error.status === 403 && (
+						<Link style={{fontWeight: 'bold'}} to='/'>
+							Please login
+						</Link>
+					)}
 				</p>
 			</div>
 		);
-
-	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-	// @ts-expect-error
-	if (isError && error?.status === 403)
-		content = (
-			<div
-				style={{
-					display: 'flex',
-					flexDirection: 'column',
-					gap: 50,
-					marginTop: 80,
-					justifyContent: 'center',
-					alignItems: 'center',
-				}}>
-				<p className='errmsg'>
-					{`${(error as DataType)?.data?.message} - `}
-					<Link style={{fontWeight: 'bold'}} to='/'>
-						Please login again
-					</Link>
-				</p>
-			</div>
-		); // Content = <h4 className='errmsg'>{error?.data?.message}</h4>;
+	}
 
 	const handleChange = useCallback(
 		debounce((value: string) => {
@@ -117,14 +82,16 @@ function DomainsList() {
 	);
 
 	useEffect(() => {
-		try {
-			const searchResult = allData.filter((item) =>
-				searched.toLowerCase() === '' ? item : item.name.toLowerCase().includes(searched),
-			);
+		if (isSuccess) {
+			try {
+				const searchResult = allData.filter((item) =>
+					searched.toLowerCase() === '' ? item : item.name.toLowerCase().includes(searched),
+				);
 
-			setData(searchResult);
-		} catch (error) {
-			console.log(error);
+				setData(searchResult);
+			} catch (error) {
+				console.log(error);
+			}
 		}
 	}, [searched, allData]);
 
@@ -140,14 +107,6 @@ function DomainsList() {
 	}
 
 	return content;
-
-	// Return (
-	// 	<div style={{display: 'flex', flexDirection: 'column', gap: 50, marginTop: 80}}>
-	// 		{/* <h2 className='text-gray-600 font-bold'>Users List</h2> */}
-	// 		<SearchInput changeHandler={handleChange} label='Search domains' />
-	// 		<BaseTable cols={domainCols} data={data} />
-	// 	</div>
-	// );
 }
 
 export default DomainsList;

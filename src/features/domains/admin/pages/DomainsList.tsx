@@ -10,24 +10,14 @@ import {domainsSelectors, useGetDomainsQuery} from '../../domainsApiSlice';
 import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 
-/*
-Get the wallet address of the currently logged in user's redux state and use it to query
-opensea, then update the user's domains (i.e write new docs to the user collection)
-for the user. Then update the user's domains count in the User table.
-*/
-
 function DomainsList() {
 	const [data, setData] = useState<DomainType[]>([]);
 	const [searched, setSearched] = useState<string>('');
 
-	// Better to prefetch with this so we could have access to the lifecyle values (isLoading, isSuccess etc)
 	const {isLoading, isFetching, isSuccess, isError, error} = useGetDomainsQuery();
 	const allData = useSelector(domainsSelectors.selectAll);
-	// Console.log(allData);
-	// CONTENT VARIABLE
-	let content: ReactNode;
 
-	// Render loading indictator
+	let content: ReactNode;
 
 	if (isLoading || isFetching)
 		content = (
@@ -43,7 +33,10 @@ function DomainsList() {
 				<CircularProgress />
 			</div>
 		);
-	if (isError)
+
+	if (isError && 'status' in error) {
+		const errMsg = 'error' in error ? error.error : (error.data as DataType['data']).message;
+
 		content = (
 			<div
 				style={{
@@ -55,35 +48,16 @@ function DomainsList() {
 					alignItems: 'center',
 				}}>
 				<p className='errmsg'>
-					{`${(error as DataType)?.data?.message}`}
-					{/* <Link style={{fontWeight: 'bold'}} to='/'>
-						Please login again
-					</Link> */}
+					{`${errMsg}`}
+					{error.status === 403 && (
+						<Link style={{fontWeight: 'bold'}} to='/'>
+							Please login
+						</Link>
+					)}
 				</p>
 			</div>
 		);
-
-	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-	// @ts-expect-error
-	if (isError && error?.status === 403)
-		content = (
-			<div
-				style={{
-					display: 'flex',
-					flexDirection: 'column',
-					gap: 50,
-					marginTop: 80,
-					justifyContent: 'center',
-					alignItems: 'center',
-				}}>
-				<p className='errmsg'>
-					{`${(error as DataType)?.data?.message} - `}
-					<Link style={{fontWeight: 'bold'}} to='/'>
-						Please login again
-					</Link>
-				</p>
-			</div>
-		); // Content = <h4 className='errmsg'>{error?.data?.message}</h4>;
+	}
 
 	const handleChange = useCallback(
 		debounce((value: string) => {
@@ -91,17 +65,18 @@ function DomainsList() {
 		}),
 		[],
 	);
-	//  Use this to sort returned data: // .sort((a, b) => (new Date(a.timestamp) > new Date(b.timestamp) ? -1 : 1))
 
 	useEffect(() => {
-		try {
-			const searchResult = allData.filter((item) =>
-				searched.toLowerCase() === '' ? item : item.username.toLowerCase().includes(searched),
-			);
+		if (isSuccess) {
+			try {
+				const searchResult = allData.filter((item) =>
+					searched.toLowerCase() === '' ? item : item.username.toLowerCase().includes(searched),
+				);
 
-			setData(searchResult);
-		} catch (error) {
-			console.log(error);
+				setData(searchResult);
+			} catch (error) {
+				console.log(error);
+			}
 		}
 	}, [searched, allData]);
 
